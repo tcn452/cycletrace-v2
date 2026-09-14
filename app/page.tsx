@@ -26,7 +26,7 @@ export default function Home() {
         <a className="brand" href="#top" aria-label="CycleTrace home"><BrandMark variant="dark" /></a>
         <button className="menu-toggle" type="button" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}><span>{menuOpen ? <FiX /> : <FiMenu />}</span><b>{menuOpen ? 'Close' : 'Menu'}</b></button>
         <nav className={`main-nav${menuOpen ? ' open' : ''}`} aria-label="Main navigation">
-          <a href="/search" onClick={() => setMenuOpen(false)}>Search a bike</a><a href="#how-it-works" onClick={() => setMenuOpen(false)}>How it works</a><a href="/organizations" onClick={() => setMenuOpen(false)}>For organisations</a><a href="#stories" onClick={() => setMenuOpen(false)}>Stories</a>
+          <a href="/search" onClick={() => setMenuOpen(false)}>Search a bike</a><a href="#how-it-works" onClick={() => setMenuOpen(false)}>How it works</a><a href="/organizations" onClick={() => setMenuOpen(false)}>For organisations</a><a href="#stories" onClick={() => setMenuOpen(false)}>Stories</a><a className="mobile-menu-action" href="/login" onClick={() => setMenuOpen(false)}>Log in</a><a className="mobile-menu-action mobile-menu-register" href="/register" onClick={() => setMenuOpen(false)}>Register a bike <FiArrowUpRight /></a>
         </nav>
         <div className="header-actions"><a className="login-link" href="/login">Log in</a><a className="button button-dark button-small" href="/register">Register a bike <FiArrowUpRight /></a></div>
       </header>
