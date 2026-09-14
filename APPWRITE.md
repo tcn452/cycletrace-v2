@@ -32,6 +32,7 @@ The live insurer workspace should use organization-scoped Appwrite records rathe
 - `verificationChecks`: policy, bike, requester, match confidence, theft status and timestamp.
 - `claims`: policy, bike, claimant, claim status, serial match result and supporting file IDs.
 - `insurerAuditEvents`: organization, member, action, target record and timestamp.
+- `insurer_claims`: organization, policy, bike, claim status, issue type, submission date and assignment.
 
 Sensitive tables should use row-level permissions for the insurer organization. Verification and claims aggregation should run through an Appwrite Function so API keys and cross-organization queries never reach the browser.
 
@@ -42,4 +43,4 @@ Sensitive tables should use row-level permissions for the insurer organization. 
 - `/insurer`: live insurer workspace once insurer tables and permissions are connected.
 - `/demo`, `/demo/dashboard`, `/demo/insurer`: permanent local demo and onboarding-preview workspaces.
 
-The insurer claims table still needs to be created in Appwrite; its intended ID is `insurer_claims`. The operator API returned an authorization error while creating it, so no claims permissions were bypassed. Resolve the Appwrite Console/operator permission and create it with the same row-security model before enabling live claims data.
+All insurer tables use row security with no public table permissions. Add organization/member row permissions through a trusted Appwrite Function or server-side integration before enabling live insurer data.
