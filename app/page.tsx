@@ -1,6 +1,7 @@
 'use client'
 
 import { FormEvent, useState } from 'react'
+import { BrandMark } from './components/BrandMark'
 
 const steps = [
   ['01', 'Register your bike', 'Add the details that make your bike yours. It takes less than five minutes.'],
@@ -47,8 +48,4 @@ export default function Home() {
       <footer className="site-footer"><div className="footer-top"><a className="brand footer-brand" href="#top"><BrandMark /></a><p>One trusted record.<br />A safer ride for everyone.</p><a className="button button-green" href="#register">Register a bike <span>↗</span></a></div><div className="footer-bottom"><span>© 2026 CycleTrace · Made for South African riders</span><div><a href="#privacy">Privacy</a><a href="#terms">Terms</a><a href="mailto:hello@cycletrace.co.za">Contact</a></div></div></footer>
     </>
   )
-}
-
-function BrandMark() {
-  return <span className="brand-mark" aria-hidden="true"><span /><i /><b /></span>
 }
