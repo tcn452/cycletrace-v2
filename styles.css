@@ -25,3 +25,5 @@
 .brand-logo{background:var(--white);border-radius:6px;padding:3px}.brand-logo img{mix-blend-mode:normal}
 .brand-logo.logo-dark{background:transparent!important;padding:0;border-radius:0}.brand-logo.logo-dark img{filter:brightness(0) invert(1)}.footer-brand .brand-logo{width:190px;height:132px}
 .button svg,.text-link svg,.topbar-search svg,.public-top-nav svg,.sidebar-help a svg,.result-arrow svg,.status svg,.secure-note svg,.search-filters button svg,.row-arrow svg{width:1em;height:1em;flex:none;stroke-width:2.2}.button,.text-link,.topbar-search,.public-top-nav a,.sidebar-help a,.status,.search-filters button{display:inline-flex;align-items:center;gap:8px}.app-nav svg{width:17px;height:17px;stroke-width:1.8}.notification svg{width:19px;height:19px}.success-icon svg,.help-icon svg,.alert-symbol svg{width:1em;height:1em}.more-dot svg{width:15px;height:15px}
+.app-sidebar{position:sticky;top:0;height:100vh;max-height:100vh;overflow-y:auto;align-self:flex-start}.app-content{min-height:100vh}
+@media(max-width:800px){.app-sidebar{position:static;height:auto;max-height:none;overflow:visible}}
