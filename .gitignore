@@ -6,3 +6,5 @@ out/
 .DS_Store
 /logo.png
 /logo.svg
+.env*
+!.env.example
