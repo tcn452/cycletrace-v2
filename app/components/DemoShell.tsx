@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import type { ReactNode } from 'react'
-import { FiArrowUpRight, FiBell, FiBookOpen, FiGrid, FiHelpCircle, FiHome, FiPlus, FiSearch, FiShield } from 'react-icons/fi'
+import { FiArrowUpRight, FiBell, FiBookOpen, FiGrid, FiHelpCircle, FiHome, FiPlus, FiSearch, FiSettings, FiShield } from 'react-icons/fi'
 import { BrandMark } from './BrandMark'
 
 export function DemoShell({ children, active = 'Overview', showSidebar = false }: { children: React.ReactNode; active?: string; showSidebar?: boolean }) {
-  const links: { label: string; href: string; icon: ReactNode }[] = [{ label: 'Overview', href: '/dashboard', icon: <FiHome /> }, { label: 'My bikes', href: '/dashboard#bikes', icon: <FiGrid /> }, { label: 'Search registry', href: '/search', icon: <FiSearch /> }, { label: 'Recovery stories', href: '/#stories', icon: <FiBookOpen /> }]
+  const links: { label: string; href: string; icon: ReactNode }[] = [{ label: 'Overview', href: '/dashboard', icon: <FiHome /> }, { label: 'My bikes', href: '/dashboard#bikes', icon: <FiGrid /> }, { label: 'Search registry', href: '/search', icon: <FiSearch /> }, { label: 'Recovery stories', href: '/#stories', icon: <FiBookOpen /> }, { label: 'Settings', href: '/settings', icon: <FiSettings /> }]
   return <div className={`app-frame${showSidebar ? '' : ' public-frame'}`}>
     {showSidebar && <aside className="app-sidebar">
       <Link className="brand app-brand" href="/"><BrandMark variant="dark" /></Link>
