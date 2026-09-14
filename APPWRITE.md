@@ -13,8 +13,11 @@ The CycleTrace Appwrite project is configured in region `fra`.
 - Database: `cycletrace`
 - Table: `bikes`
 - Storage bucket: `bikephotos`
+- Store owner table: `store_owners`
 
-The `bikes` table stores ownership, bike details, status, and the linked `photoFileId`. The `bikephotos` bucket is private per file, encrypted, antivirus-enabled, and accepts image uploads up to 10 MB.
+The `bikes` table stores ownership, bike details, status, the linked `photoFileId`, and the optional `storeOwnerId` that identifies a shop registering the bike. The `bikephotos` bucket is private per file, encrypted, antivirus-enabled, and accepts image uploads up to 10 MB.
+
+The `store_owners` table stores shop/business identity, contact details, verification status and the owning Appwrite user ID. This is the base for a future shop dashboard and assisted bike-registration workflow.
 
 ## Local Setup
 
