@@ -32,6 +32,15 @@ export default function Home() {
       </header>
 
       <main id="top">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'Organization',
+          name: 'CycleTrace',
+          url: 'https://cycletrace.co.za',
+          logo: 'https://cycletrace.co.za/logo.svg',
+          description: "South Africa's bike registry for registering, searching and recovering bicycles.",
+          areaServed: 'ZA',
+        }) }} />
         <section className="hero"><div className="hero-copy"><p className="eyebrow"><span className="eyebrow-dot" /> South Africa&apos;s bike registry</p><h1>The bike registry<br />that <em>works.</em></h1><p className="hero-lede">Put your bike on the map. Register it once, search before you buy, and give the community a better chance of bringing stolen bikes home.</p><div className="hero-actions"><a className="button button-green" href="#register">Register your bike <FiArrowUpRight /></a><a className="text-link light-link" href="#search">Search the registry <FiArrowRight /></a></div><div className="hero-proof"><div className="avatar-stack"><i /><i /><i /><i>+</i></div><span>Join <strong>4,800+</strong> riders protecting their bikes</span></div></div><div className="hero-visual" aria-label="Bike registration card preview"><div className="visual-top"><span className="live-label"><i /> Live registry</span><span>09 / 24</span></div><div className="bike-photo"><div className="photo-tag">Verified owner</div></div><div className="bike-card-info"><div><span className="micro-label">REGISTERED BIKE</span><h2>Specialized<br />Allez Sport</h2></div><span className="verified-badge">✓</span></div><div className="bike-card-meta"><span>Serial number</span><strong>WSBC6019····</strong><span className="card-status">Active</span></div><div className="scan-line" /><span className="corner-mark top-left" /><span className="corner-mark bottom-right" /></div></section>
 
         <section className="stats-strip" aria-label="CycleTrace statistics"><div><strong>4,826</strong><span>bikes protected</span></div><div><strong>156</strong><span>reported stolen</span></div><div><strong>38</strong><span>reunited with owners</span></div><div><strong>9</strong><span>trusted partners</span></div></section>
