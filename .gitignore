@@ -3,3 +3,5 @@ node_modules/
 out/
 *.log
 *.tsbuildinfo
+.DS_Store
+/logo.png

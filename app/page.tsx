@@ -21,7 +21,7 @@ export default function Home() {
   return (
     <>
       <header className="site-header">
-        <a className="brand" href="#top" aria-label="CycleTrace home"><BrandMark /><span>CYCLE<span>TRACE</span></span></a>
+        <a className="brand" href="#top" aria-label="CycleTrace home"><BrandMark /></a>
         <button className="menu-toggle" type="button" aria-label="Open navigation" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? 'Close' : 'Menu'}</button>
         <nav className={`main-nav${menuOpen ? ' open' : ''}`} aria-label="Main navigation">
           <a href="/search" onClick={() => setMenuOpen(false)}>Search a bike</a><a href="#how-it-works" onClick={() => setMenuOpen(false)}>How it works</a><a href="/organizations" onClick={() => setMenuOpen(false)}>For organisations</a><a href="#stories" onClick={() => setMenuOpen(false)}>Stories</a>
@@ -44,7 +44,7 @@ export default function Home() {
         <section className="partners-section section-shell" id="partners"><p className="eyebrow dark-eyebrow">Built for everyone who cares about bikes</p><div className="partner-row"><span>BIKE SHOPS</span><span>INSURERS</span><span>COMMUNITIES</span><span>LAW ENFORCEMENT</span><span>RIDERS</span></div></section>
       </main>
 
-      <footer className="site-footer"><div className="footer-top"><a className="brand footer-brand" href="#top"><BrandMark /><span>CYCLE<span>TRACE</span></span></a><p>One trusted record.<br />A safer ride for everyone.</p><a className="button button-green" href="#register">Register a bike <span>↗</span></a></div><div className="footer-bottom"><span>© 2026 CycleTrace · Made for South African riders</span><div><a href="#privacy">Privacy</a><a href="#terms">Terms</a><a href="mailto:hello@cycletrace.co.za">Contact</a></div></div></footer>
+      <footer className="site-footer"><div className="footer-top"><a className="brand footer-brand" href="#top"><BrandMark /></a><p>One trusted record.<br />A safer ride for everyone.</p><a className="button button-green" href="#register">Register a bike <span>↗</span></a></div><div className="footer-bottom"><span>© 2026 CycleTrace · Made for South African riders</span><div><a href="#privacy">Privacy</a><a href="#terms">Terms</a><a href="mailto:hello@cycletrace.co.za">Contact</a></div></div></footer>
     </>
   )
 }
