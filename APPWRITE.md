@@ -41,3 +41,5 @@ Sensitive tables should use row-level permissions for the insurer organization. 
 - `/dashboard`, `/settings`, `/settings/billing`: live Appwrite-backed owner workspace.
 - `/insurer`: live insurer workspace once insurer tables and permissions are connected.
 - `/demo`, `/demo/dashboard`, `/demo/insurer`: permanent local demo and onboarding-preview workspaces.
+
+The insurer claims table still needs to be created in Appwrite; its intended ID is `insurer_claims`. The operator API returned an authorization error while creating it, so no claims permissions were bypassed. Resolve the Appwrite Console/operator permission and create it with the same row-security model before enabling live claims data.
