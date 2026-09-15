@@ -9,13 +9,14 @@ export type BikeRecord = Models.Row & {
   year: number
   colour: string
   location: string
+  ownerType?: 'user' | 'store'
   photoFileId?: string
   status: 'protected' | 'stolen' | 'transferred'
   createdAt: string
   image?: string
 }
 
-export type NewBikeRecord = Pick<BikeRecord, 'brand' | 'model' | 'serialNumber' | 'year' | 'colour' | 'location' | 'status' | 'createdAt'> & { photo: File }
+export type NewBikeRecord = Pick<BikeRecord, 'brand' | 'model' | 'serialNumber' | 'year' | 'colour' | 'location' | 'status' | 'createdAt' | 'ownerType'> & { photo: File }
 
 const tableId = 'bikes'
 
