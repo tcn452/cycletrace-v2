@@ -36,6 +36,7 @@ The live insurer workspace should use organization-scoped Appwrite records rathe
 - `claims`: policy, bike, claimant, claim status, serial match result and supporting file IDs.
 - `insurerAuditEvents`: organization, member, action, target record and timestamp.
 - `insurer_claims`: organization, policy, bike, claim status, issue type, submission date and assignment.
+- `ownership_transfers`: bike, sender, recipient, secure transfer token, status and acceptance timestamps.
 
 Sensitive tables should use row-level permissions for the insurer organization. Verification and claims aggregation should run through an Appwrite Function so API keys and cross-organization queries never reach the browser.
 
