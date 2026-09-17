@@ -1,13 +1,16 @@
+'use client'
+
 import Link from 'next/link'
-import { notFound } from 'next/navigation'
-import { FiAlertTriangle, FiArrowLeft, FiArrowRight, FiArrowUpRight, FiCheck, FiEdit3, FiRepeat } from 'react-icons/fi'
+import { use, useEffect, useState } from 'react'
+import { FiAlertTriangle, FiArrowLeft, FiCheck, FiRepeat } from 'react-icons/fi'
 import { DemoShell } from '../../../components/DemoShell'
-import { bikes } from '../../../lib/demo-data'
+import { BikeRecord, getAppwriteBike } from '../../../lib/appwrite/bikes'
 
-export default async function DashboardBikeRecord({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params
-  const bike = bikes.find(item => item.id === id)
-  if (!bike) notFound()
-
-  return <DemoShell active="My bikes" showSidebar><Link className="back-link" href="/dashboard#bikes"><FiArrowLeft /> Back to my bikes</Link><div className="workspace-record-heading"><div><p className="eyebrow dark-eyebrow">My bike · {bike.id.toUpperCase()}</p><h1>Your <span>bike record.</span></h1><p>Keep these details current so your ownership record stays useful when it matters.</p></div><span className="status"><FiCheck /> Protected</span></div><div className="workspace-record-grid"><div><div className="detail-photo" style={{ backgroundImage: `url(${bike.image})` }}><span className="status"><FiCheck /> Protected</span></div><div className="photo-caption">Private owner view · Last updated 12 Aug 2024</div></div><div className="workspace-record-copy"><h2>{bike.brand} {bike.model}</h2><p className="detail-intro">This record is attached to your CycleTrace account and can be shared with buyers, insurers or a new owner when you choose.</p><div className="detail-facts"><div><span>Serial number</span><strong>{bike.serial}</strong></div><div><span>Year</span><strong>{bike.year}</strong></div><div><span>Colour</span><strong>{bike.colour}</strong></div><div><span>Last known location</span><strong>{bike.location}</strong></div></div><div className="record-actions"><Link className="button button-green" href="/dashboard/transfer"><FiRepeat /> Transfer ownership</Link><Link className="button button-dark" href="/dashboard/report"><FiAlertTriangle /> Report stolen</Link></div><div className="record-secondary-actions"><button className="text-button"><FiEdit3 /> Edit bike details</button><Link className="text-link dark-link" href={`/bikes/${bike.id}`}>Preview public record <FiArrowUpRight /></Link></div></div></div><section className="workspace-record-history"><div><p className="eyebrow dark-eyebrow">Record history</p><h2>A clear trail<br /><span>protects everyone.</span></h2></div><div className="record-timeline"><div><span className="timeline-dot"><FiCheck /></span><div><strong>Bike registered</strong><p>12 Aug 2024 · Added by Kayla Morgan</p></div></div><div><span className="timeline-dot"><FiEdit3 /></span><div><strong>Details confirmed</strong><p>12 Aug 2024 · Serial number verified</p></div></div><div><span className="timeline-dot"><FiRepeat /></span><div><strong>Ownership changes</strong><p>Future transfers will appear here</p></div></div></div></section></DemoShell>
+export default function DashboardBikeDetail({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params)
+  const [bike, setBike] = useState<BikeRecord | null>()
+  useEffect(() => { getAppwriteBike(id).then(setBike) }, [id])
+  if (bike === undefined) return <DemoShell showSidebar><div className="empty-state">Loading live Appwrite record…</div></DemoShell>
+  if (!bike) return <DemoShell showSidebar><div className="empty-state"><h3>Bike record not found</h3><Link href="/dashboard">Return to dashboard</Link></div></DemoShell>
+  return <DemoShell active="My bikes" showSidebar><Link className="back-link" href="/dashboard#bikes"><FiArrowLeft /> Back to my bikes</Link><div className="workspace-record-heading"><div><p className="eyebrow dark-eyebrow">My bike · {bike.$id.toUpperCase()}</p><h1>Your <span>bike record.</span></h1></div><span className={bike.status === 'stolen' ? 'status status-stolen' : 'status'}>{bike.status === 'protected' && <FiCheck />} {bike.status}</span></div><div className="workspace-record-grid"><div><div className="detail-photo" style={bike.image ? { backgroundImage: `url(${bike.image})` } : undefined} /></div><div className="workspace-record-copy"><h2>{bike.brand} {bike.model}</h2><div className="detail-facts"><div><span>Serial number</span><strong>{bike.serialNumber}</strong></div><div><span>Year</span><strong>{bike.year}</strong></div><div><span>Colour</span><strong>{bike.colour}</strong></div><div><span>Location</span><strong>{bike.location}</strong></div></div><div className="record-actions"><Link className="button button-green" href={`/dashboard/transfer?bike=${bike.$id}`}><FiRepeat /> Transfer ownership</Link>{bike.status !== 'stolen' && <Link className="button button-dark" href={`/dashboard/report?bike=${bike.$id}`}><FiAlertTriangle /> Report stolen</Link>}</div></div></div></DemoShell>
 }

@@ -22,6 +22,6 @@ export async function createOwnershipTransfer(input: { bikeId: string; toEmail: 
     tableId: 'ownership_transfers',
     rowId: appwriteId.unique(),
     data: { ...input, fromUserId: user.$id, status: 'pending', transferToken, createdAt: new Date().toISOString() },
-    permissions: [`read("user:${user.$id}")`, 'read("any")'],
+    permissions: [`read("user:${user.$id}")`, `update("user:${user.$id}")`, `delete("user:${user.$id}")`],
   })
 }

@@ -1,5 +1,5 @@
 import { Models, Query } from 'appwrite'
-import { appwriteAccount, appwriteConfig, appwriteDatabaseId, appwriteTables } from './client'
+import { appwriteAccount, appwriteDatabaseId, appwriteTables } from './client'
 
 export type InsurerPolicy = Models.Row & {
   organizationId: string
@@ -16,6 +16,11 @@ export type InsurerMember = Models.Row & {
   userId: string
   email: string
   role: 'admin' | 'reviewer' | 'claims'
+}
+
+export type InsurerOrganization = Models.Row & {
+  name: string
+  status: string
 }
 
 export type InsurerCheck = Models.Row & {
@@ -39,16 +44,16 @@ export type InsurerClaim = Models.Row & {
 }
 
 export async function getInsurerWorkspace() {
-  if (!appwriteConfig.configured) return null
   const user = await appwriteAccount.get()
   const members = await appwriteTables.listRows<InsurerMember>({ databaseId: appwriteDatabaseId, tableId: 'insurer_members', queries: [Query.equal('userId', user.$id)] })
   const member = members.rows[0]
-  if (!member) return { member: null, policies: [], checks: [], claims: [] }
+  if (!member) return { organization: null, member: null, policies: [], checks: [], claims: [] }
   const orgQuery = [Query.equal('organizationId', member.organizationId)]
-  const [policies, checks, claims] = await Promise.all([
+  const [organization, policies, checks, claims] = await Promise.all([
+    appwriteTables.getRow<InsurerOrganization>({ databaseId: appwriteDatabaseId, tableId: 'insurer_organizations', rowId: member.organizationId }),
     appwriteTables.listRows<InsurerPolicy>({ databaseId: appwriteDatabaseId, tableId: 'policies', queries: orgQuery }),
     appwriteTables.listRows<InsurerCheck>({ databaseId: appwriteDatabaseId, tableId: 'verification_checks', queries: orgQuery }),
     appwriteTables.listRows<InsurerClaim>({ databaseId: appwriteDatabaseId, tableId: 'insurer_claims', queries: orgQuery }).catch(() => ({ rows: [] as InsurerClaim[] })),
   ])
-  return { member, policies: policies.rows, checks: checks.rows, claims: claims.rows }
+  return { organization, member, policies: policies.rows, checks: checks.rows, claims: claims.rows }
 }

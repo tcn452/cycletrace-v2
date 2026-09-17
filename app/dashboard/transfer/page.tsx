@@ -1,30 +1,25 @@
 'use client'
 
 import Link from 'next/link'
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import { FiArrowRight, FiCheck } from 'react-icons/fi'
 import { DemoShell } from '../../components/DemoShell'
+import { getCurrentAppwriteUser } from '../../lib/appwrite/auth'
+import { BikeRecord, listAppwriteBikes } from '../../lib/appwrite/bikes'
 import { createOwnershipTransfer } from '../../lib/appwrite/transfers'
-import { appwriteConfig } from '../../lib/appwrite/client'
 
 export default function TransferPage() {
-  const [step, setStep] = useState(1)
-  const [complete, setComplete] = useState(false)
+  const [bikes, setBikes] = useState<BikeRecord[]>([])
+  const [bikeId, setBikeId] = useState('')
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [message, setMessage] = useState('')
+  const [token, setToken] = useState('')
   const [error, setError] = useState('')
-  const [transferToken, setTransferToken] = useState('demo-transfer')
-  async function next(event: FormEvent) {
-    event.preventDefault()
-    if (step < 3) setStep(step + 1)
-    else {
-      setError('')
-      if (appwriteConfig.configured) {
-        try { const transfer = await createOwnershipTransfer({ bikeId: 'ct-4826', toEmail: 'jordan@example.com', toName: 'Jordan Lee' }); if (transfer?.transferToken) setTransferToken(transfer.transferToken) } catch { setError('We could not save this transfer to Appwrite. Confirm that you are signed in and try again.'); return }
-      }
-      setComplete(true)
-    }
-  }
-
-  if (complete) return <DemoShell active="My bikes"><div className="success-panel"><span className="success-icon"><FiCheck /></span><p className="eyebrow dark-eyebrow">Transfer initiated</p><h1>The bike is<br /><span>changing hands.</span></h1><p>We&apos;ve sent a transfer request to Jordan Lee. Your Specialized Allez Sport will remain in your account until they accept it.</p><div className="success-code">TRANSFER CODE <strong>TR-4826-JL</strong></div><div className="success-actions"><Link className="button button-green" href="/dashboard">Return to dashboard <FiArrowRight /></Link><Link className="text-link dark-link" href={`/transfer/${transferToken}`}>Open recipient link <FiArrowRight /></Link></div></div></DemoShell>
-
-  return <DemoShell active="My bikes"><Link className="back-link" href="/dashboard">← Back to dashboard</Link><div className="transfer-layout"><div className="transfer-intro"><p className="eyebrow dark-eyebrow">Change of ownership</p><h1>Transfer a<br /><span>bike.</span></h1><p>Handing your bike to someone new? Keep its history intact and let the new owner take over the record.</p><div className="transfer-note"><span>✓</span><p><strong>What stays with the bike?</strong><br />Its serial number, registration history and any public recovery record.</p></div></div><div className="form-card transfer-card"><div className="form-progress"><span className={step >= 1 ? 'active' : ''}>01 Select bike</span><span className={step >= 2 ? 'active' : ''}>02 New owner</span><span className={step >= 3 ? 'active' : ''}>03 Confirm</span></div><form onSubmit={next}>{step === 1 && <><h2>Which bike are you transferring?</h2><p className="form-helper">The bike will stay protected while the new owner accepts.</p><div className="transfer-bike-option selected"><div className="mini-bike-photo" /><div><strong>Specialized Allez Sport</strong><span>WSBC6019K2482 · Protected</span></div><b>✓</b></div><div className="transfer-bike-option"><div className="mini-bike-photo trek" /><div><strong>Trek Marlin 7 Gen 3</strong><span>WTU178M4N11904 · Protected</span></div><b>○</b></div></>}{step === 2 && <><h2>Who are you transferring to?</h2><p className="form-helper">They&apos;ll get an email with a secure acceptance link.</p><label>New owner&apos;s full name<input required placeholder="e.g. Jordan Lee" /></label><label>New owner&apos;s email address<input required type="email" placeholder="jordan@example.com" /></label><label>Transfer date<input required type="date" /></label><label>Message <span className="optional">optional</span><textarea rows={3} placeholder="Add a note for the new owner..." /></label></>}{step === 3 && <><h2>Review the transfer</h2><p className="form-helper">Check these details before sending the request.</p><div className="review-list"><div><span>Bike</span><strong>Specialized Allez Sport</strong></div><div><span>New owner</span><strong>Jordan Lee</strong></div><div><span>Email</span><strong>jordan@example.com</strong></div><div><span>Record status</span><strong className="green-text">Protected until accepted</strong></div></div><label className="check-label"><input required type="checkbox" /> I confirm this is a legitimate transfer of ownership.</label></>}{error && <p className="auth-error" role="alert">{error}</p>}<div className="form-actions"><button className="button button-green" type="submit">{step === 3 ? 'Send transfer request' : 'Continue'} <FiArrowRight /></button>{step > 1 && <button className="text-button" type="button" onClick={() => setStep(step - 1)}>Back</button>}</div></form></div></div></DemoShell>
+  const [loading, setLoading] = useState(true)
+  useEffect(() => { getCurrentAppwriteUser().then(async user => { if (!user) throw new Error(); const rows = await listAppwriteBikes(user.$id); setBikes(rows); setBikeId(rows[0]?.$id || '') }).catch(() => setError('Sign in to transfer a bike.')).finally(() => setLoading(false)) }, [])
+  async function submit(event: FormEvent) { event.preventDefault(); setError(''); try { const transfer = await createOwnershipTransfer({ bikeId, toEmail: email, toName: name, message }); if (!transfer) throw new Error(); setToken(transfer.transferToken) } catch { setError('The transfer could not be saved to Appwrite.') } }
+  const bike = bikes.find(row => row.$id === bikeId)
+  if (token) return <DemoShell active="My bikes"><div className="success-panel"><span className="success-icon"><FiCheck /></span><p className="eyebrow dark-eyebrow">Transfer initiated</p><h1>The bike is<br /><span>changing hands.</span></h1><p>{bike?.brand} {bike?.model} will remain linked to you until {name} accepts.</p><div className="success-actions"><Link className="button button-green" href="/dashboard">Return to dashboard <FiArrowRight /></Link><Link className="text-link dark-link" href={`/transfer/${token}`}>Open recipient link <FiArrowRight /></Link></div></div></DemoShell>
+  return <DemoShell active="My bikes"><Link className="back-link" href="/dashboard">← Back to dashboard</Link><div className="transfer-layout"><div className="transfer-intro"><p className="eyebrow dark-eyebrow">Change of ownership</p><h1>Transfer a<br /><span>bike.</span></h1><p>Create a live Appwrite ownership-transfer record.</p></div><div className="form-card transfer-card">{loading ? <div className="empty-state">Loading your bikes…</div> : bikes.length === 0 ? <div className="empty-state"><h3>No bikes available</h3><p>Register a bike before starting a transfer.</p></div> : <form onSubmit={submit}><h2>Transfer details</h2><label>Bike<select required value={bikeId} onChange={event => setBikeId(event.target.value)}>{bikes.map(row => <option value={row.$id} key={row.$id}>{row.brand} {row.model} · {row.serialNumber}</option>)}</select></label><label>New owner&apos;s full name<input required value={name} onChange={event => setName(event.target.value)} /></label><label>New owner&apos;s email<input required type="email" value={email} onChange={event => setEmail(event.target.value)} /></label><label>Message <span className="optional">optional</span><textarea rows={3} value={message} onChange={event => setMessage(event.target.value)} /></label><label className="check-label"><input required type="checkbox" /> I confirm this is a legitimate transfer.</label>{error && <p className="auth-error" role="alert">{error}</p>}<button className="button button-green" type="submit">Send transfer request <FiArrowRight /></button></form>}</div></div></DemoShell>
 }

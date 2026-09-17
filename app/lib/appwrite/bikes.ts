@@ -1,5 +1,5 @@
 import { Models, Query } from 'appwrite'
-import { appwriteAccount, appwriteBikePhotosBucketId, appwriteConfig, appwriteId, appwriteStorage, appwriteTables, appwriteDatabaseId } from './client'
+import { appwriteAccount, appwriteBikePhotosBucketId, appwriteId, appwriteStorage, appwriteTables, appwriteDatabaseId } from './client'
 
 export type BikeRecord = Models.Row & {
   ownerId: string
@@ -16,7 +16,7 @@ export type BikeRecord = Models.Row & {
   image?: string
 }
 
-export type NewBikeRecord = Pick<BikeRecord, 'brand' | 'model' | 'serialNumber' | 'year' | 'colour' | 'location' | 'status' | 'createdAt' | 'ownerType'> & { photo: File }
+export type NewBikeRecord = Pick<BikeRecord, 'brand' | 'model' | 'serialNumber' | 'year' | 'colour' | 'location' | 'status' | 'createdAt'> & { ownerType?: 'user' | 'store'; photo: File }
 
 const tableId = 'bikes'
 
@@ -28,19 +28,29 @@ function withImage(row: BikeRecord) {
 }
 
 export async function listAppwriteBikes(ownerId?: string) {
-  if (!appwriteConfig.configured) return []
   const queries = ownerId ? [Query.equal('ownerId', ownerId), Query.orderDesc('createdAt')] : [Query.orderDesc('createdAt')]
   const result = await appwriteTables.listRows<BikeRecord>({ databaseId: appwriteDatabaseId, tableId, queries })
   return result.rows.map(withImage)
 }
 
 export async function getAppwriteBike(id: string) {
-  if (!appwriteConfig.configured) return null
   try {
     return withImage(await appwriteTables.getRow<BikeRecord>({ databaseId: appwriteDatabaseId, tableId, rowId: id }))
   } catch {
     return null
   }
+}
+
+export async function searchAppwriteBikes(search: string) {
+  const term = search.trim()
+  if (!term) return []
+  const result = await appwriteTables.listRows<BikeRecord>({ databaseId: appwriteDatabaseId, tableId, queries: [Query.limit(100)] })
+  const normalized = term.toLocaleLowerCase()
+  return result.rows.filter(row => [row.serialNumber, row.brand, row.model].some(value => value.toLocaleLowerCase().includes(normalized))).map(withImage)
+}
+
+export async function updateAppwriteBikeStatus(id: string, status: BikeRecord['status']) {
+  return appwriteTables.updateRow<BikeRecord>({ databaseId: appwriteDatabaseId, tableId, rowId: id, data: { status } })
 }
 
 export async function createAppwriteBike(input: NewBikeRecord) {
@@ -52,7 +62,7 @@ export async function createAppwriteBike(input: NewBikeRecord) {
     databaseId: appwriteDatabaseId,
     tableId,
     rowId: appwriteId.unique(),
-    data: { ...bikeData, ownerId: user.$id, photoFileId },
+    data: { ...bikeData, ownerType: bikeData.ownerType || 'user', ownerId: user.$id, photoFileId },
     permissions: [`read("any")`, `update("user:${user.$id}")`, `delete("user:${user.$id}")`],
   })
   return withImage(row)

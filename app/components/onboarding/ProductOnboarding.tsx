@@ -2,7 +2,7 @@
 
 import type { ReactNode } from 'react'
 import { OnboardingProvider, StepComponentProps, useOnboarding } from '@onboardjs/react'
-import { appwriteAccount, appwriteConfig } from '../../lib/appwrite/client'
+import { appwriteAccount } from '../../lib/appwrite/client'
 
 type Role = 'rider' | 'insurer'
 
@@ -31,5 +31,5 @@ function OnboardingSurface({ children, role }: { children: ReactNode; role: Role
 
 export function ProductOnboarding({ children, role }: { children: ReactNode; role: Role }) {
   const steps = copy[role].map(([id, title, description], index) => ({ id, type: 'CUSTOM_COMPONENT' as const, payload: { componentKey: 'TourStep', title, description }, nextStep: copy[role][index + 1]?.[0] || null }))
-  return <OnboardingProvider steps={steps} componentRegistry={{ TourStep }} flowId={`cycletrace-${role}`} flowName={`${role} onboarding`} localStoragePersistence={{ key: `cycletrace-onboarding-${role}` }} onFlowComplete={async () => { if (appwriteConfig.configured) { try { await appwriteAccount.updatePrefs({ [`${role}OnboardingComplete`]: true }) } catch { /* Demo users may not have a session yet. */ } } }}><OnboardingSurface role={role}>{children}</OnboardingSurface></OnboardingProvider>
+  return <OnboardingProvider steps={steps} componentRegistry={{ TourStep }} flowId={`cycletrace-${role}`} flowName={`${role} onboarding`} localStoragePersistence={{ key: `cycletrace-onboarding-${role}` }} onFlowComplete={async () => { try { await appwriteAccount.updatePrefs({ prefs: { [`${role}OnboardingComplete`]: true } }) } catch { /* A signed-out visitor can still dismiss the guide locally. */ } }}><OnboardingSurface role={role}>{children}</OnboardingSurface></OnboardingProvider>
 }

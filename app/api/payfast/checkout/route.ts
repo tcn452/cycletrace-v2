@@ -1,10 +1,14 @@
 import { NextResponse } from 'next/server'
 import { createPayFastSignature, hasPayFastConfig, PAYFAST_SANDBOX_URL } from '../../../lib/payfast'
 
-export async function POST() {
+export async function POST(request: Request) {
   if (!hasPayFastConfig()) {
-    return NextResponse.json({ demo: true, message: 'PayFast sandbox credentials are not configured yet.' })
+    return NextResponse.json({ error: 'Billing is not configured.' }, { status: 503 })
   }
+
+  const { name, email } = await request.json() as { name?: string; email?: string }
+  if (!name?.trim() || !email?.trim()) return NextResponse.json({ error: 'Account name and email are required.' }, { status: 400 })
+  const [nameFirst, ...lastParts] = name.trim().split(/\s+/)
 
   const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
   const fields = {
@@ -13,9 +17,9 @@ export async function POST() {
     return_url: `${appUrl}/settings/billing?status=success`,
     cancel_url: `${appUrl}/settings/billing?status=cancelled`,
     notify_url: `${appUrl}/api/payfast/notify`,
-    name_first: 'Kayla',
-    name_last: 'Morgan',
-    email_address: 'kayla@example.com',
+    name_first: nameFirst,
+    name_last: lastParts.join(' '),
+    email_address: email.trim(),
     m_payment_id: `CT-${Date.now()}`,
     amount: '24.99',
     item_name: 'CycleTrace Protected',
