@@ -5,6 +5,7 @@ import {
   Permission,
   Query,
   Role,
+  Storage,
   TablesDB,
   Users,
 } from "node-appwrite";
@@ -30,6 +31,7 @@ export function createAdminServices() {
     .setKey(apiKey!);
   return {
     account: new Account(client),
+    storage: new Storage(client),
     tables: new TablesDB(client),
     users: new Users(client),
     databaseId: databaseId!,
