@@ -4,7 +4,8 @@ import Link from 'next/link'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { FiArrowRight, FiCamera, FiCheck, FiUploadCloud } from 'react-icons/fi'
 import { DemoShell } from '../components/DemoShell'
-import { createAppwriteAccount } from '../lib/appwrite/auth'
+import { AppwriteException } from 'appwrite'
+import { createOrResumeAppwriteAccount } from '../lib/appwrite/auth'
 import { createAppwriteBike } from '../lib/appwrite/bikes'
 
 const emptyForm = { brand: '', model: '', year: '', colour: '', serialNumber: '', location: '', ownerName: '', email: '', password: '' }
@@ -34,11 +35,17 @@ export default function RegisterPage() {
     if (!photoFile) { setRegistrationError('Please add a clear photo of your bike.'); return }
     setSaving(true)
     try {
-      await createAppwriteAccount(bikeForm.email, bikeForm.password, bikeForm.ownerName)
+      await createOrResumeAppwriteAccount(bikeForm.email, bikeForm.password, bikeForm.ownerName)
       const bike = await createAppwriteBike({ brand: bikeForm.brand, model: bikeForm.model, year: Number(bikeForm.year), colour: bikeForm.colour, serialNumber: bikeForm.serialNumber, location: bikeForm.location, status: 'protected', createdAt: new Date().toISOString(), photo: photoFile })
       setCreatedBikeId(bike.$id)
-    } catch {
-      setRegistrationError('We could not create your Appwrite account and bike record. Check your details and try again.')
+    } catch (error) {
+      console.error('[bike-registration] failed', error)
+      if (error instanceof AppwriteException) {
+        if (error.code === 401) setRegistrationError('Your session or password was not accepted. Sign in again and retry the registration.')
+        else if (error.code === 409) setRegistrationError('That serial number or account is already registered. Sign in to view the existing record.')
+        else if (error.code === 413) setRegistrationError('The bike photo is too large. Choose a smaller image and try again.')
+        else setRegistrationError(`Appwrite could not save the bike: ${error.message}`)
+      } else setRegistrationError(error instanceof Error ? error.message : 'We could not save the bike. Check your details and try again.')
     } finally {
       setSaving(false)
     }

@@ -58,12 +58,17 @@ export async function createAppwriteBike(input: NewBikeRecord) {
   const { photo, ...bikeData } = input
   const photoFileId = appwriteId.unique()
   await appwriteStorage.createFile({ bucketId: appwriteBikePhotosBucketId, fileId: photoFileId, file: photo, permissions: ['read("any")'] })
-  const row = await appwriteTables.createRow<BikeRecord>({
-    databaseId: appwriteDatabaseId,
-    tableId,
-    rowId: appwriteId.unique(),
-    data: { ...bikeData, ownerType: bikeData.ownerType || 'user', ownerId: user.$id, photoFileId },
-    permissions: [`read("any")`, `update("user:${user.$id}")`, `delete("user:${user.$id}")`],
-  })
-  return withImage(row)
+  try {
+    const row = await appwriteTables.createRow<BikeRecord>({
+      databaseId: appwriteDatabaseId,
+      tableId,
+      rowId: appwriteId.unique(),
+      data: { ...bikeData, ownerType: bikeData.ownerType || 'user', ownerId: user.$id, photoFileId },
+      permissions: [`read("any")`, `update("user:${user.$id}")`, `delete("user:${user.$id}")`],
+    })
+    return withImage(row)
+  } catch (error) {
+    await appwriteStorage.deleteFile({ bucketId: appwriteBikePhotosBucketId, fileId: photoFileId }).catch(() => undefined)
+    throw error
+  }
 }

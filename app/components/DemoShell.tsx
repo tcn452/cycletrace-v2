@@ -153,6 +153,11 @@ export function DemoShell({
               </nav>
             )}
           </div>
+          {!showSidebar && (
+            <Link className="public-mobile-start" href="/onboarding">
+              Get started <FiArrowUpRight />
+            </Link>
+          )}
         </header>
         <main className="app-main">{children}</main>
       </div>

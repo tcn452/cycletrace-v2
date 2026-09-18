@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import {
   FiArrowRight,
@@ -8,6 +10,7 @@ import {
   FiUser,
 } from "react-icons/fi";
 import { DemoShell } from "../components/DemoShell";
+import { trackOnboardingEvent } from "../lib/appwrite/platform";
 
 export default function OnboardingPage() {
   return (
@@ -35,6 +38,14 @@ export default function OnboardingPage() {
         </div>
 
         <div className="onboarding-choice-layout">
+          <nav
+            className="onboarding-role-nav"
+            aria-label="Choose an onboarding path"
+          >
+            <a href="#rider">Rider</a>
+            <a href="#store">Store</a>
+            <a href="#insurer">Insurer</a>
+          </nav>
           <article className="onboarding-primary" id="rider">
             <div className="onboarding-path-icon">
               <FiUser />
@@ -59,13 +70,21 @@ export default function OnboardingPage() {
               </li>
             </ul>
             <div className="onboarding-primary-action">
-              <Link className="button button-green" href="/register">
+              <Link
+                className="button button-green"
+                href="/register"
+                onClick={() => trackOnboardingEvent("path_selected", "rider")}
+              >
                 Register my bike <FiArrowRight />
               </Link>
               <span>
                 <FiClock /> About 5 minutes
               </span>
             </div>
+            <p className="onboarding-price">
+              <strong>R24.99 / month</strong> after registration. Cancel from
+              billing settings.
+            </p>
           </article>
 
           <div
@@ -80,6 +99,7 @@ export default function OnboardingPage() {
               className="onboarding-path"
               href="/store-owner/onboarding"
               id="store"
+              onClick={() => trackOnboardingEvent("path_selected", "store")}
             >
               <span className="onboarding-path-icon">
                 <FiShoppingBag />
@@ -98,6 +118,7 @@ export default function OnboardingPage() {
               className="onboarding-path"
               href="/insurer/onboarding"
               id="insurer"
+              onClick={() => trackOnboardingEvent("path_selected", "insurer")}
             >
               <span className="onboarding-path-icon">
                 <FiShield />
@@ -120,6 +141,10 @@ export default function OnboardingPage() {
                 available.
               </p>
             </div>
+            <p className="organization-pricing">
+              Organisation access is verification-first. Commercial terms are
+              confirmed during approval.
+            </p>
           </div>
         </div>
       </section>
