@@ -1506,6 +1506,19 @@ body {
 .form-intro {
   padding-top: 20px;
 }
+.form-intro h1 {
+  max-width: 430px;
+  font-size: clamp(48px, 5vw, 72px);
+  line-height: 0.96;
+  letter-spacing: -0.04em;
+  margin: 0 0 24px;
+}
+.form-intro > p {
+  max-width: 360px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.65;
+}
 .pricing-note {
   border-top: 1px solid var(--line);
   margin-top: 43px;
@@ -1585,6 +1598,26 @@ body {
 .form-card textarea {
   resize: vertical;
 }
+.form-card input:disabled {
+  color: #66726c;
+  background: #f0f3f1;
+  cursor: not-allowed;
+}
+.account-ready-note {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 14px;
+  border-radius: var(--control);
+  background: #edf7f1;
+  color: #17633d;
+  font-size: 12px;
+  font-weight: 700;
+}
+.account-ready-note svg {
+  flex: 0 0 auto;
+  font-size: 16px;
+}
 .field-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1603,6 +1636,126 @@ body {
   width: 14px !important;
   height: 14px;
   margin-right: 8px;
+}
+.registration-review {
+  display: grid;
+  gap: 20px;
+}
+.registration-review-photo {
+  position: relative;
+  min-height: 245px;
+  overflow: hidden;
+  border-radius: var(--control);
+  background: #dfe6e2;
+}
+.registration-review-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.registration-review-photo::after {
+  content: "";
+  position: absolute;
+  inset: 45% 0 0;
+  background: linear-gradient(transparent, rgba(14, 33, 25, 0.58));
+}
+.registration-review-status {
+  position: absolute;
+  z-index: 1;
+  left: 15px;
+  bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  border-radius: 999px;
+  padding: 8px 11px;
+  background: var(--logo-yellow);
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 800;
+}
+.registration-review-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+.registration-review-heading h2 {
+  font-size: 30px;
+  line-height: 1;
+}
+.registration-review-heading span {
+  display: block;
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 11px;
+}
+.registration-review-heading > strong {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 10px;
+  color: #526059;
+  font-size: 11px;
+}
+.registration-review-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 0;
+  border-top: 1px solid var(--line);
+}
+.registration-review-details div {
+  min-width: 0;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+.registration-review-details div:nth-child(odd) {
+  padding-right: 18px;
+}
+.registration-review-details div:nth-child(even) {
+  padding-left: 18px;
+  border-left: 1px solid var(--line);
+}
+.registration-review-details dt {
+  margin-bottom: 5px;
+  color: #84908a;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.registration-review-details dd {
+  overflow: hidden;
+  margin: 0;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.registration-review-confirmation {
+  display: flex !important;
+  grid-template-columns: none !important;
+  align-items: flex-start;
+  gap: 9px !important;
+  padding: 14px;
+  border-radius: var(--control);
+  background: var(--soft);
+  color: #5d6963 !important;
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  line-height: 1.5;
+}
+.registration-review-confirmation input {
+  flex: 0 0 auto;
+  width: 15px !important;
+  height: 15px;
+  margin-top: 1px;
+}
+.registration-review-confirmation a {
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: underline;
 }
 .form-actions {
   display: flex;
@@ -5614,6 +5767,24 @@ body {
   .field-grid {
     grid-template-columns: 1fr;
     gap: 15px;
+  }
+  .form-intro h1 {
+    font-size: 46px;
+  }
+  .registration-review-photo {
+    min-height: 210px;
+  }
+  .registration-review-heading h2 {
+    font-size: 26px;
+  }
+  .registration-review-details {
+    grid-template-columns: 1fr;
+  }
+  .registration-review-details div:nth-child(odd),
+  .registration-review-details div:nth-child(even) {
+    padding-right: 0;
+    padding-left: 0;
+    border-left: 0;
   }
   .settings-actions .button {
     width: 100%;
