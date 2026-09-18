@@ -60,6 +60,23 @@ export async function updateAppwritePassword(password: string, oldPassword?: str
   return appwriteAccount.updatePassword({ password, oldPassword })
 }
 
+export async function requestPasswordRecovery(email: string, redirectUrl?: string) {
+  const url =
+    redirectUrl ||
+    (typeof window !== 'undefined'
+      ? `${window.location.origin}/reset-password`
+      : 'https://cycletrace.co.za/reset-password')
+  return appwriteAccount.createRecovery({ email, url })
+}
+
+export async function resetPasswordWithRecovery(params: {
+  userId: string
+  secret: string
+  password: string
+}) {
+  return appwriteAccount.updateRecovery(params)
+}
+
 export async function signOutFromAppwrite() {
   return appwriteAccount.deleteSession({ sessionId: 'current' })
 }

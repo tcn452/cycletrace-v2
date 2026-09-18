@@ -190,14 +190,11 @@ export default function StoreOwnerRegisterPage() {
           </h2>
           <p style={{ color: "#6e7772", fontSize: "14px", lineHeight: "1.5", marginBottom: "24px" }}>
             Customer bicycle registration is currently locked for <strong>{store.businessName}</strong>.
-            Your shop application is pending administrator verification in the CycleTrace Admin Dashboard.
+            Your shop application is pending review. Once verification is complete, your registration tools will automatically activate.
           </p>
-          <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", justifyContent: "center" }}>
             <Link className="button button-dark" href="/store-owner">
               <FiArrowLeft /> Return to store workspace
-            </Link>
-            <Link className="button button-green" href="/admin">
-              <FiShield /> Open Admin Dashboard
             </Link>
           </div>
         </div>

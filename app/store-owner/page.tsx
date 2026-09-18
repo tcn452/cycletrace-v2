@@ -5,8 +5,11 @@ import { useEffect, useState } from "react";
 import {
   FiArrowRight,
   FiCheck,
+  FiFileText,
   FiLock,
   FiPlus,
+  FiPrinter,
+  FiRepeat,
   FiShield,
   FiShoppingBag,
 } from "react-icons/fi";
@@ -14,16 +17,26 @@ import { DemoShell } from "../components/DemoShell";
 import { OrganizationInvite } from "../components/OrganizationInvite";
 import { OrganizationStatus } from "../components/OrganizationStatus";
 import { getStoreWorkspace } from "../lib/appwrite/store";
+import { listStoreTransfers, OwnershipTransfer } from "../lib/appwrite/transfers";
 
 type Workspace = Awaited<ReturnType<typeof getStoreWorkspace>>;
 
 export default function StoreOwnerPage() {
   const [workspace, setWorkspace] = useState<Workspace | null>();
+  const [transfers, setTransfers] = useState<OwnershipTransfer[]>([]);
+  const [activeTab, setActiveTab] = useState<"stock" | "transfers">("stock");
+
   useEffect(() => {
     getStoreWorkspace()
-      .then(setWorkspace)
+      .then((ws) => {
+        setWorkspace(ws);
+        if (ws?.store?.$id) {
+          listStoreTransfers(ws.store.$id).then(setTransfers).catch(() => {});
+        }
+      })
       .catch(() => setWorkspace(null));
   }, []);
+
   if (workspace === undefined)
     return (
       <DemoShell showSidebar>
@@ -53,8 +66,10 @@ export default function StoreOwnerPage() {
         </div>
       </DemoShell>
     );
+
   const { store, bikes } = workspace;
   const isVerified = store.status === "verified";
+  const stockBikes = bikes.filter((b) => b.status !== "transferred");
 
   return (
     <DemoShell active="Overview" showSidebar>
@@ -66,18 +81,27 @@ export default function StoreOwnerPage() {
           <h1>
             Live store
             <br />
-            <span>records.</span>
+            <span>inventory &amp; sales.</span>
           </h1>
           <p>
             {isVerified
-              ? "Register customer bikes and manage records from your verified shop workspace."
+              ? "Register shop stock, transfer ownership to bikers, and generate verified paper trail certificates."
               : "Your shop application is awaiting administrator verification before tools are activated."}
           </p>
         </div>
         {isVerified ? (
-          <Link className="button button-green" href="/store-owner/register">
-            <FiPlus /> Register a customer bike
-          </Link>
+          <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+            <Link className="button button-green" href="/store-owner/register">
+              <FiPlus /> Register stock bike
+            </Link>
+            <Link
+              className="button button-dark"
+              href="/store-owner/transfer"
+              style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}
+            >
+              <FiRepeat /> Transfer to biker
+            </Link>
+          </div>
         ) : (
           <button
             className="button"
@@ -120,49 +144,30 @@ export default function StoreOwnerPage() {
         <div>
           <strong style={{ fontSize: "15px" }}>
             {isVerified
-              ? "Store Status: Verified"
+              ? "Store Status: Verified Retailer"
               : store.status === "rejected"
               ? "Store Status: Application Rejected"
               : "Store Status: Pending Administrator Verification"}
           </strong>
           <p style={{ margin: "4px 0 0 0", fontSize: "13px" }}>
             {isVerified
-              ? "Your registration tools are active. You can register customer bicycles directly to your shop workspace."
-              : "Registration tools are locked until CycleTrace administrators verify your shop credentials. Verification normally takes 1–2 business days."}
+              ? "Your registration and stock transfer tools are active. All customer handovers generate a verifiable digital paper trail."
+              : "Registration and transfer tools are locked until CycleTrace administrators verify your shop credentials. Verification normally takes 1–2 business days."}
           </p>
-          {!isVerified && (
-            <div style={{ marginTop: "10px" }}>
-              <Link
-                href="/admin"
-                className="button button-small button-dark"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "6px",
-                  fontSize: "11px",
-                  padding: "6px 12px",
-                }}
-              >
-                <FiShield /> Verify this store in Admin Dashboard
-              </Link>
-            </div>
-          )}
         </div>
       </div>
       <OrganizationStatus status={store.status} />
 
       <div className="dashboard-stats">
         <div>
-          <span>Bikes registered</span>
-          <strong>{bikes.length}</strong>
-          <small>Live records</small>
+          <span>Stock in store</span>
+          <strong>{stockBikes.length}</strong>
+          <small>Available inventory</small>
         </div>
         <div>
-          <span>Active records</span>
-          <strong>
-            {bikes.filter((bike) => bike.status !== "stolen").length}
-          </strong>
-          <small>In registry</small>
+          <span>Transferred to bikers</span>
+          <strong>{transfers.length}</strong>
+          <small>Verified paper trail</small>
         </div>
         <div>
           <span>Shop status</span>
@@ -178,15 +183,15 @@ export default function StoreOwnerPage() {
           <span className="store-action-icon">
             <FiShoppingBag />
           </span>
-          <h2>Register a customer bike</h2>
+          <h2>Register shop inventory</h2>
           <p>
             {isVerified
-              ? "Capture customer ownership details and create a verified registry record."
+              ? "Add new stock or customer bicycles to your shop registry."
               : "Registration tools are locked until your shop profile is approved by an administrator."}
           </p>
           {isVerified ? (
             <Link className="button button-dark" href="/store-owner/register">
-              Start registration <FiArrowRight />
+              Register stock <FiArrowRight />
             </Link>
           ) : (
             <button
@@ -207,46 +212,293 @@ export default function StoreOwnerPage() {
             </button>
           )}
         </div>
+
+        <div className="store-action-card">
+          <span className="store-action-icon">
+            <FiRepeat />
+          </span>
+          <h2>Transfer stock to biker</h2>
+          <p>
+            {isVerified
+              ? "Hand over stock to a buyer with an invoice reference and digital certificate."
+              : "Transfer tools unlock once your retailer account is verified."}
+          </p>
+          {isVerified ? (
+            <Link className="button button-green" href="/store-owner/transfer">
+              Transfer to customer <FiArrowRight />
+            </Link>
+          ) : (
+            <button
+              className="button"
+              disabled
+              style={{
+                opacity: 0.6,
+                cursor: "not-allowed",
+                background: "#f0f4f2",
+                color: "#7b8681",
+                border: "1px solid #dce2df",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "6px",
+              }}
+            >
+              <FiLock /> Verification required
+            </button>
+          )}
+        </div>
+
         <div className="store-action-card">
           <span className="store-action-icon">
             <FiShield />
           </span>
-          <h2>Verify a record</h2>
-          <p>Search the live public registry before accepting trade-ins.</p>
+          <h2>Verify registry record</h2>
+          <p>Check the national public registry before accepting second-hand trade-ins.</p>
           <Link className="button button-dark" href="/search">
             Search registry <FiArrowRight />
           </Link>
         </div>
       </section>
-      <section className="store-recent">
-        <div className="section-title">
-          <div>
-            <p className="eyebrow dark-eyebrow">Shop activity</p>
-            <h2>
-              Recent <span>registrations.</span>
-            </h2>
+
+      {/* Inventory and Paper Trail Tabs */}
+      <div style={{ display: "flex", gap: "10px", borderBottom: "1px solid #e1e7e4", margin: "32px 0 24px" }}>
+        <button
+          type="button"
+          onClick={() => setActiveTab("stock")}
+          style={{
+            padding: "10px 16px",
+            background: "none",
+            border: "none",
+            borderBottom: activeTab === "stock" ? "2px solid #173426" : "2px solid transparent",
+            color: activeTab === "stock" ? "#173426" : "#6e7772",
+            fontWeight: activeTab === "stock" ? 700 : 500,
+            fontSize: "14px",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+          }}
+        >
+          <FiShoppingBag /> Shop Stock Inventory ({stockBikes.length})
+        </button>
+        <button
+          type="button"
+          onClick={() => setActiveTab("transfers")}
+          style={{
+            padding: "10px 16px",
+            background: "none",
+            border: "none",
+            borderBottom: activeTab === "transfers" ? "2px solid #173426" : "2px solid transparent",
+            color: activeTab === "transfers" ? "#173426" : "#6e7772",
+            fontWeight: activeTab === "transfers" ? 700 : 500,
+            fontSize: "14px",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+          }}
+        >
+          <FiFileText /> Customer Handover Paper Trail ({transfers.length})
+        </button>
+      </div>
+
+      {/* TAB 1: Shop Stock Inventory */}
+      {activeTab === "stock" && (
+        <section className="store-recent">
+          <div className="section-title" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div>
+              <p className="eyebrow dark-eyebrow">Available Stock</p>
+              <h2>
+                Shop Inventory <span>in store.</span>
+              </h2>
+            </div>
+            {isVerified && (
+              <Link className="button button-green button-small" href="/store-owner/register">
+                <FiPlus /> Add stock bike
+              </Link>
+            )}
           </div>
-        </div>
-        {bikes.length === 0 ? (
-          <div className="empty-state">
-            No bikes have been registered by this store.
+
+          {stockBikes.length === 0 ? (
+            <div className="empty-state">
+              <h3>No bicycles currently in shop stock</h3>
+              <p>Register new stock or customer bicycles to start building your store inventory.</p>
+              {isVerified && (
+                <Link className="button button-green button-small" href="/store-owner/register" style={{ marginTop: "12px" }}>
+                  Register a bicycle
+                </Link>
+              )}
+            </div>
+          ) : (
+            <div className="store-table">
+              {stockBikes.map((bike) => (
+                <div
+                  key={bike.$id}
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "1.4fr 1.2fr 100px 160px",
+                    alignItems: "center",
+                    gap: "12px",
+                  }}
+                >
+                  <span style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                    {bike.image && (
+                      <span
+                        style={{
+                          width: "36px",
+                          height: "36px",
+                          borderRadius: "6px",
+                          backgroundImage: `url(${bike.image})`,
+                          backgroundSize: "cover",
+                          backgroundPosition: "center",
+                          display: "inline-block",
+                          flexShrink: 0,
+                        }}
+                      />
+                    )}
+                    <span>
+                      <strong>
+                        {bike.brand} {bike.model}
+                      </strong>
+                      <small>{bike.year} · {bike.colour}</small>
+                    </span>
+                  </span>
+                  <span style={{ fontFamily: "monospace", letterSpacing: "0.05em" }}>
+                    {bike.serialNumber}
+                  </span>
+                  <span>
+                    <span
+                      style={{
+                        padding: "3px 8px",
+                        borderRadius: "12px",
+                        fontSize: "10px",
+                        fontWeight: 700,
+                        background: "#eefbf3",
+                        color: "#167240",
+                        display: "inline-block",
+                      }}
+                    >
+                      In Stock
+                    </span>
+                  </span>
+                  <span style={{ textAlign: "right" }}>
+                    {isVerified ? (
+                      <Link
+                        className="button button-small"
+                        href={`/store-owner/transfer?bikeId=${bike.$id}`}
+                        style={{
+                          padding: "4px 10px",
+                          fontSize: "11px",
+                          background: "#ffffff",
+                          border: "1px solid #cbd5cf",
+                          color: "#173426",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: "4px",
+                        }}
+                      >
+                        <FiRepeat /> Transfer to biker
+                      </Link>
+                    ) : (
+                      <small style={{ color: "#7b8681" }}>Locked</small>
+                    )}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+      )}
+
+      {/* TAB 2: Customer Handover Paper Trail Log */}
+      {activeTab === "transfers" && (
+        <section className="store-recent">
+          <div className="section-title">
+            <div>
+              <p className="eyebrow dark-eyebrow">Digital Paper Trail</p>
+              <h2>
+                Ownership <span>Handover Log.</span>
+              </h2>
+              <p style={{ fontSize: "13px", color: "#6e7772" }}>
+                Official commercial transfer records and certificates issued to customers.
+              </p>
+            </div>
           </div>
-        ) : (
-          <div className="store-table">
-            {bikes.map((bike) => (
-              <div key={bike.$id}>
-                <strong>
-                  {bike.brand} {bike.model}
-                </strong>
-                <span>{bike.serialNumber}</span>
-                <b>
-                  <FiCheck /> {bike.status}
-                </b>
-              </div>
-            ))}
-          </div>
-        )}
-      </section>
+
+          {transfers.length === 0 ? (
+            <div className="empty-state">
+              <h3>No customer handovers recorded yet</h3>
+              <p>When you transfer stock to buyers, their digital certificates and invoice records will appear here.</p>
+              {isVerified && stockBikes.length > 0 && (
+                <Link className="button button-green button-small" href="/store-owner/transfer" style={{ marginTop: "12px" }}>
+                  Transfer stock to customer
+                </Link>
+              )}
+            </div>
+          ) : (
+            <div className="store-table">
+              {transfers.map((t) => (
+                <div
+                  key={t.$id}
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "1.4fr 1.2fr 1fr 150px",
+                    alignItems: "center",
+                    gap: "12px",
+                  }}
+                >
+                  <span>
+                    <strong>
+                      {t.bikeSummary?.brand || "Bike"} {t.bikeSummary?.model || "Transfer"}
+                    </strong>
+                    <small style={{ fontFamily: "monospace" }}>
+                      SN: {t.bikeSummary?.serialNumber || "Recorded"} · Ref: {t.invoiceRef || "N/A"}
+                    </small>
+                  </span>
+                  <span>
+                    <strong>{t.toName}</strong>
+                    <small>{t.toEmail}</small>
+                  </span>
+                  <span>
+                    <small>{new Date(t.createdAt).toLocaleDateString("en-ZA")}</small>
+                    <span
+                      style={{
+                        padding: "2px 6px",
+                        borderRadius: "8px",
+                        fontSize: "10px",
+                        fontWeight: 700,
+                        background: "#eefbf3",
+                        color: "#167240",
+                        display: "inline-block",
+                        marginLeft: "6px",
+                      }}
+                    >
+                      <FiCheck /> Transferred
+                    </span>
+                  </span>
+                  <span style={{ textAlign: "right" }}>
+                    <Link
+                      className="button button-small"
+                      href={`/store-owner/transfers/${t.$id}/certificate`}
+                      style={{
+                        padding: "4px 10px",
+                        fontSize: "11px",
+                        background: "#ffffff",
+                        border: "1px solid #cbd5cf",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "4px",
+                      }}
+                    >
+                      <FiPrinter /> Certificate
+                    </Link>
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+      )}
+
       {store.status === "verified" && (
         <OrganizationInvite
           organizationId={store.$id}
@@ -256,3 +508,4 @@ export default function StoreOwnerPage() {
     </DemoShell>
   );
 }
+

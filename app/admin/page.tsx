@@ -107,14 +107,6 @@ export default function AdminPage() {
     }
   }
 
-  function handleQuickUnlock() {
-    const defaultPasscode = process.env.NEXT_PUBLIC_ADMIN_PASSCODE || "cycletrace-admin";
-    window.sessionStorage.setItem("cycletrace_admin_auth", "true");
-    window.sessionStorage.setItem("cycletrace_admin_passcode", defaultPasscode);
-    setAuthorized(true);
-    setPassError("");
-  }
-
   async function handleVerifyStore(storeId: string, status: "verified" | "pending" | "rejected") {
     setBusy(storeId);
     setFeedback(null);
@@ -183,16 +175,6 @@ export default function AdminPage() {
               <FiUnlock /> Unlock Admin Dashboard
             </button>
           </form>
-
-          <div style={{ marginTop: "20px", paddingTop: "16px", borderTop: "1px solid #edf0ee" }}>
-            <button
-              type="button"
-              onClick={handleQuickUnlock}
-              style={{ background: "none", border: "none", color: "#173426", fontSize: "12px", textDecoration: "underline", cursor: "pointer", fontWeight: 500 }}
-            >
-              Demo Quick Unlock (CycleTrace Administrator)
-            </button>
-          </div>
         </div>
       </DemoShell>
     );

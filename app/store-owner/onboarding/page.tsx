@@ -85,12 +85,9 @@ export default function StoreOwnerOnboardingPage() {
             takes 1–2 business days.
           </p>
           <OrganizationStatus status={result.status} />
-          <div style={{ display: "flex", gap: "12px", justifyContent: "center", marginTop: "16px", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: "12px", justifyContent: "center", marginTop: "16px" }}>
             <Link className="button button-green" href="/store-owner">
               Open store workspace <FiArrowRight />
-            </Link>
-            <Link className="button button-dark" href="/admin">
-              View in Admin Dashboard <FiArrowRight />
             </Link>
           </div>
         </div>

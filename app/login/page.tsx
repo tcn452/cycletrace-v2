@@ -45,5 +45,74 @@ export default function LoginPage() {
     )
   }
 
-  return <DemoShell active="Overview"><div className="auth-layout"><div className="auth-visual"><p className="eyebrow">Your bikes, together</p><h1>One place to<br /><em>look after</em> them.</h1><p>Sign in to view your protected bike records.</p></div><div className="auth-card"><p className="eyebrow dark-eyebrow">Member access</p><h2>Welcome back.</h2><p className="form-helper">Sign in to manage your bikes and keep your records current.</p><form onSubmit={submit}><label>Email address<input name="email" required type="email" autoComplete="email" placeholder="you@example.com" /></label><label>Password<input name="password" required type="password" autoComplete="current-password" placeholder="Enter your password" /></label>{authError && <p className="auth-error" role="alert">{authError}</p>}<button className="button button-green full-button" type="submit" disabled={loading}>{loading ? 'Signing in…' : 'Sign in'} <FiArrowRight /></button></form><div className="auth-divider"><span>or</span></div><p className="auth-switch">New to CycleTrace? <Link href="/register">Create an account</Link></p></div></div></DemoShell>
+  return (
+    <DemoShell active="Overview">
+      <div className="auth-layout">
+        <div className="auth-visual">
+          <p className="eyebrow">Your bikes, together</p>
+          <h1>
+            One place to
+            <br />
+            <em>look after</em> them.
+          </h1>
+          <p>Sign in to view your protected bike records.</p>
+        </div>
+        <div className="auth-card">
+          <p className="eyebrow dark-eyebrow">Member access</p>
+          <h2>Welcome back.</h2>
+          <p className="form-helper">
+            Sign in to manage your bikes and keep your records current.
+          </p>
+          <form onSubmit={submit}>
+            <label>
+              Email address
+              <input
+                name="email"
+                required
+                type="email"
+                autoComplete="email"
+                placeholder="you@example.com"
+              />
+            </label>
+            <label>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <span>Password</span>
+                <Link
+                  href="/forgot-password"
+                  style={{ fontSize: "12px", color: "#173426", textDecoration: "underline", fontWeight: 500 }}
+                >
+                  Forgot password?
+                </Link>
+              </div>
+              <input
+                name="password"
+                required
+                type="password"
+                autoComplete="current-password"
+                placeholder="Enter your password"
+              />
+            </label>
+            {authError && (
+              <p className="auth-error" role="alert">
+                {authError}
+              </p>
+            )}
+            <button
+              className="button button-green full-button"
+              type="submit"
+              disabled={loading}
+            >
+              {loading ? "Signing in…" : "Sign in"} <FiArrowRight />
+            </button>
+          </form>
+          <div className="auth-divider">
+            <span>or</span>
+          </div>
+          <p className="auth-switch">
+            New to CycleTrace? <Link href="/register">Create an account</Link>
+          </p>
+        </div>
+      </div>
+    </DemoShell>
+  );
 }
