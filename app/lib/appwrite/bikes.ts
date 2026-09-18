@@ -53,6 +53,19 @@ export async function updateAppwriteBikeStatus(id: string, status: BikeRecord['s
   return appwriteTables.updateRow<BikeRecord>({ databaseId: appwriteDatabaseId, tableId, rowId: id, data: { status } })
 }
 
+export async function updateAppwriteBikeDetails(
+  id: string,
+  data: Partial<Pick<BikeRecord, 'location' | 'colour' | 'year' | 'brand' | 'model'>>
+) {
+  const row = await appwriteTables.updateRow<BikeRecord>({
+    databaseId: appwriteDatabaseId,
+    tableId,
+    rowId: id,
+    data,
+  })
+  return withImage(row)
+}
+
 export async function createAppwriteBike(input: NewBikeRecord) {
   const user = await appwriteAccount.get()
   const { photo, ...bikeData } = input
