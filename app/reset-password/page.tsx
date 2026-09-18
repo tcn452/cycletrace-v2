@@ -20,15 +20,31 @@ function ResetPasswordForm() {
 
   if (!userId || !secret) {
     return (
-      <div className="auth-card" style={{ maxWidth: '480px', margin: '40px auto', textAlign: 'center', padding: '36px 28px' }}>
-        <p className="eyebrow dark-eyebrow">Invalid Recovery Link</p>
-        <h2 style={{ fontSize: '22px', marginBottom: '8px' }}>Link expired or invalid</h2>
-        <p style={{ color: '#6e7772', fontSize: '14px', lineHeight: '1.5', marginBottom: '24px' }}>
-          This password reset link is missing required verification credentials or has expired. Please request a new recovery link.
-        </p>
-        <Link className="button button-green full-button" href="/forgot-password" style={{ justifyContent: 'center' }}>
-          Request new reset link <FiArrowRight />
-        </Link>
+      <div className="auth-layout">
+        <div className="auth-visual">
+          <p className="eyebrow">Account Security</p>
+          <h1>
+            Recovery link
+            <br />
+            <em>expired</em>.
+          </h1>
+          <p>Please request a new password recovery link to update your account.</p>
+        </div>
+        <div className="auth-card">
+          <p className="eyebrow dark-eyebrow">Invalid Recovery Link</p>
+          <h2>Link expired or invalid</h2>
+          <p className="form-helper" style={{ marginBottom: '24px' }}>
+            This password reset link is missing required verification credentials or has expired. Please request a new recovery link.
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <Link className="button button-green full-button" href="/forgot-password" style={{ justifyContent: 'center' }}>
+              Request new reset link <FiArrowRight />
+            </Link>
+            <Link className="button button-ghost full-button" href="/login" style={{ justifyContent: 'center' }}>
+              Return to sign in
+            </Link>
+          </div>
+        </div>
       </div>
     )
   }
@@ -64,31 +80,42 @@ function ResetPasswordForm() {
 
   if (success) {
     return (
-      <div className="auth-card" style={{ maxWidth: '480px', margin: '40px auto', textAlign: 'center', padding: '36px 28px' }}>
-        <div
-          style={{
-            width: '56px',
-            height: '56px',
-            borderRadius: '28px',
-            background: '#eefbf3',
-            color: '#167240',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            margin: '0 auto 16px',
-            fontSize: '24px',
-          }}
-        >
-          <FiCheck />
+      <div className="auth-layout">
+        <div className="auth-visual">
+          <p className="eyebrow">Account Security</p>
+          <h1>
+            Password
+            <br />
+            <em>updated</em>.
+          </h1>
+          <p>Your account password has been successfully reset. You can now sign in.</p>
         </div>
-        <p className="eyebrow dark-eyebrow">Password Updated</p>
-        <h2 style={{ fontSize: '24px', marginBottom: '8px' }}>You&apos;re all set!</h2>
-        <p style={{ color: '#6e7772', fontSize: '14px', lineHeight: '1.5', marginBottom: '24px' }}>
-          Your password has been successfully reset. You can now sign in to your CycleTrace account with your new credentials.
-        </p>
-        <Link className="button button-green full-button" href="/login" style={{ justifyContent: 'center' }}>
-          Sign in with new password <FiArrowRight />
-        </Link>
+        <div className="auth-card">
+          <div
+            style={{
+              width: '52px',
+              height: '52px',
+              borderRadius: '50%',
+              background: '#eefbf3',
+              color: '#167240',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: '20px',
+              fontSize: '24px',
+            }}
+          >
+            <FiCheck />
+          </div>
+          <p className="eyebrow dark-eyebrow">Password Updated</p>
+          <h2 style={{ fontSize: '26px', marginBottom: '10px' }}>You&apos;re all set!</h2>
+          <p style={{ color: '#4b5563', fontSize: '14px', lineHeight: '1.6', marginBottom: '24px' }}>
+            Your password has been successfully reset. You can now sign in to your CycleTrace account with your new credentials.
+          </p>
+          <Link className="button button-green full-button" href="/login" style={{ justifyContent: 'center' }}>
+            Sign in with new password <FiArrowRight />
+          </Link>
+        </div>
       </div>
     )
   }
