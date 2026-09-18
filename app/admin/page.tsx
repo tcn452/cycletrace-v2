@@ -92,18 +92,17 @@ export default function AdminPage() {
 
   function handlePasscodeUnlock(e?: React.FormEvent) {
     if (e) e.preventDefault();
-    const clean = passcode.trim().toLowerCase();
+    const clean = passcode.trim();
+    const envPasscode = process.env.NEXT_PUBLIC_ADMIN_PASSCODE;
     if (
       clean === "cycletrace-admin" ||
-      clean === "admin2026" ||
-      clean === "admin" ||
-      clean === "unlock"
+      (envPasscode && clean === envPasscode)
     ) {
       window.sessionStorage.setItem("cycletrace_admin_auth", "true");
       setAuthorized(true);
       setPassError("");
     } else {
-      setPassError("Invalid admin passcode. Try 'cycletrace-admin' or 'admin2026'");
+      setPassError("Invalid admin passcode.");
     }
   }
 
@@ -168,7 +167,7 @@ export default function AdminPage() {
               Admin Passcode
               <input
                 type="password"
-                placeholder="Enter passcode (e.g. cycletrace-admin)"
+                placeholder="Enter administrator passcode"
                 value={passcode}
                 onChange={(e) => setPasscode(e.target.value)}
                 style={{ width: "100%", marginTop: "6px", padding: "10px 14px", borderRadius: "8px", border: "1px solid #cbd5cf", fontSize: "14px" }}
