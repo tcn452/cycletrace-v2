@@ -53,6 +53,7 @@ export default function StoreOwnerOnboardingPage() {
         address,
         intendedRole: "admin",
       });
+      await refresh();
       setResult(data);
       trackOnboardingEvent("form_submitted", "store");
     } catch (reason) {
@@ -84,9 +85,14 @@ export default function StoreOwnerOnboardingPage() {
             takes 1–2 business days.
           </p>
           <OrganizationStatus status={result.status} />
-          <Link className="button button-green" href="/store-owner">
-            Check store workspace <FiArrowRight />
-          </Link>
+          <div style={{ display: "flex", gap: "12px", justifyContent: "center", marginTop: "16px", flexWrap: "wrap" }}>
+            <Link className="button button-green" href="/store-owner">
+              Open store workspace <FiArrowRight />
+            </Link>
+            <Link className="button button-dark" href="/admin">
+              View in Admin Dashboard <FiArrowRight />
+            </Link>
+          </div>
         </div>
       </DemoShell>
     );

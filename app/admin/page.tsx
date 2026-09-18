@@ -99,6 +99,7 @@ export default function AdminPage() {
       (envPasscode && clean === envPasscode)
     ) {
       window.sessionStorage.setItem("cycletrace_admin_auth", "true");
+      window.sessionStorage.setItem("cycletrace_admin_passcode", clean);
       setAuthorized(true);
       setPassError("");
     } else {
@@ -107,7 +108,9 @@ export default function AdminPage() {
   }
 
   function handleQuickUnlock() {
+    const defaultPasscode = process.env.NEXT_PUBLIC_ADMIN_PASSCODE || "cycletrace-admin";
     window.sessionStorage.setItem("cycletrace_admin_auth", "true");
+    window.sessionStorage.setItem("cycletrace_admin_passcode", defaultPasscode);
     setAuthorized(true);
     setPassError("");
   }
@@ -221,6 +224,7 @@ export default function AdminPage() {
             style={{ background: "#f0f4f2", border: "1px solid #dce4e0", color: "#4f5d56" }}
             onClick={() => {
               window.sessionStorage.removeItem("cycletrace_admin_auth");
+              window.sessionStorage.removeItem("cycletrace_admin_passcode");
               setAuthorized(false);
             }}
           >
