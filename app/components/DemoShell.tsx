@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
 import {
+  FiAlertTriangle,
   FiArrowLeft,
   FiArrowUpRight,
   FiGrid,
@@ -33,11 +34,17 @@ export function DemoShell({
   const { user, logout } = useAuth();
   const userName = user?.name || user?.email || "";
   const userEmail = user?.email || "";
+  const isAdmin = Boolean(
+    user?.labels?.includes("admin") ||
+    (user?.prefs as Record<string, unknown> | undefined)?.role === "admin"
+  );
   const links: { label: string; href: string; icon: ReactNode }[] = [
     { label: "Overview", href: "/dashboard", icon: <FiHome /> },
     { label: "My bikes", href: "/dashboard#bikes", icon: <FiGrid /> },
     { label: "Search registry", href: "/search", icon: <FiSearch /> },
+    { label: "Stolen alerts", href: "/search?filter=stolen", icon: <FiAlertTriangle /> },
     { label: "Settings", href: "/settings", icon: <FiSettings /> },
+    ...(isAdmin ? [{ label: "Admin", href: "/admin", icon: <FiShield /> }] : []),
   ];
   return (
     <div className={`app-frame${showSidebar ? "" : " public-frame"}`}>
@@ -141,6 +148,9 @@ export function DemoShell({
             ) : (
               <nav className="public-top-nav">
                 <Link href="/search">Search a bike</Link>
+                <Link href="/search?filter=stolen" style={{ color: "#d9381e", fontWeight: 600 }}>
+                  🚨 Stolen alerts
+                </Link>
                 <Link href="/organizations">For organisations</Link>
                 {user ? (
                   <>

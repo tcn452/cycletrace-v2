@@ -1,13 +1,23 @@
 "use client";
 
 import { appwriteAccount } from "./client";
+import { createStoreOwner } from "./store";
 
 export type OrganizationType = "store" | "insurer";
 export type ApplicationStatus =
   "submitted" | "reviewing" | "approved" | "rejected";
 
 async function authenticatedFetch(path: string, init?: RequestInit) {
-  const jwt = await appwriteAccount.createJWT();
+  let jwt: { jwt: string };
+  try {
+    jwt = await appwriteAccount.createJWT();
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    if (msg.includes("missing scopes") || msg.includes("guests")) {
+      throw new Error("AUTH_REQUIRED");
+    }
+    throw err;
+  }
   const response = await fetch(path, {
     ...init,
     headers: {
@@ -24,10 +34,30 @@ async function authenticatedFetch(path: string, init?: RequestInit) {
 export async function submitOrganizationApplication(
   input: Record<string, string>,
 ) {
-  return authenticatedFetch("/api/organizations/apply", {
-    method: "POST",
-    body: JSON.stringify(input),
-  });
+  try {
+    return await authenticatedFetch("/api/organizations/apply", {
+      method: "POST",
+      body: JSON.stringify(input),
+    });
+  } catch (err) {
+    // If the server API is unavailable or unconfigured, fall back to direct store creation in Appwrite
+    if (input.type === "store") {
+      const user = await appwriteAccount.get();
+      const store = await createStoreOwner({
+        businessName: input.organizationName,
+        contactName: input.contactName || user.name || "Store Owner",
+        email: user.email,
+        phone: input.phone || "",
+        address: input.address || "",
+      });
+      return {
+        applicationId: store.$id,
+        reference: `CT-STR-${store.$id.slice(-6).toUpperCase()}`,
+        status: store.status,
+      };
+    }
+    throw err;
+  }
 }
 
 export async function loadAdminOverview() {

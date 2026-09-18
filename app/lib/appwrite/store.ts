@@ -23,5 +23,40 @@ export async function getStoreWorkspace() {
 
 export async function createStoreOwner(input: Omit<StoreOwner, keyof Models.Row | 'userId' | 'status' | 'createdAt'>) {
   const user = await appwriteAccount.get()
-  return appwriteTables.createRow<StoreOwner>({ databaseId: appwriteDatabaseId, tableId: 'store_owners', rowId: appwriteId.unique(), data: { ...input, userId: user.$id, status: 'pending', createdAt: new Date().toISOString() }, permissions: [`read("user:${user.$id}")`, `update("user:${user.$id}")`] })
+  return appwriteTables.createRow<StoreOwner>({
+    databaseId: appwriteDatabaseId,
+    tableId: 'store_owners',
+    rowId: appwriteId.unique(),
+    data: { ...input, userId: user.$id, status: 'pending', createdAt: new Date().toISOString() },
+    permissions: [
+      'read("any")',
+      'read("users")',
+      `read("user:${user.$id}")`,
+      'update("any")',
+      'update("users")',
+      `update("user:${user.$id}")`,
+    ],
+  })
+}
+
+export async function listAllStores() {
+  try {
+    const result = await appwriteTables.listRows<StoreOwner>({
+      databaseId: appwriteDatabaseId,
+      tableId: 'store_owners',
+      queries: [Query.orderDesc('createdAt'), Query.limit(100)],
+    })
+    return result.rows
+  } catch {
+    return []
+  }
+}
+
+export async function verifyStoreOwner(storeId: string, status: 'verified' | 'pending' | 'rejected' = 'verified') {
+  return appwriteTables.updateRow<StoreOwner>({
+    databaseId: appwriteDatabaseId,
+    tableId: 'store_owners',
+    rowId: storeId,
+    data: { status },
+  })
 }

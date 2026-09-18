@@ -6537,3 +6537,23 @@ body {
     font-size: 12px;
   }
 }
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.spin {
+  animation: spin 1s linear infinite;
+}
+.status-verified {
+  background: #eefbf3;
+  color: #167240;
+}
+.status-pending {
+  background: #fffbd1;
+  color: #755e00;
+}
+.status-rejected {
+  background: #fff0e9;
+  color: #a84a2d;
+}
+

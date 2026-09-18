@@ -49,6 +49,33 @@ export async function searchAppwriteBikes(search: string) {
   return result.rows.filter(row => [row.serialNumber, row.brand, row.model].some(value => value.toLocaleLowerCase().includes(normalized))).map(withImage)
 }
 
+export async function listStolenBikes(limit = 100) {
+  try {
+    const result = await appwriteTables.listRows<BikeRecord>({
+      databaseId: appwriteDatabaseId,
+      tableId,
+      queries: [Query.equal('status', 'stolen'), Query.orderDesc('createdAt'), Query.limit(limit)],
+    })
+    return result.rows.map(withImage)
+  } catch {
+    const result = await appwriteTables.listRows<BikeRecord>({
+      databaseId: appwriteDatabaseId,
+      tableId,
+      queries: [Query.orderDesc('createdAt'), Query.limit(limit)],
+    })
+    return result.rows.filter(row => row.status === 'stolen').map(withImage)
+  }
+}
+
+export async function listAllPublicBikes(limit = 100) {
+  const result = await appwriteTables.listRows<BikeRecord>({
+    databaseId: appwriteDatabaseId,
+    tableId,
+    queries: [Query.orderDesc('createdAt'), Query.limit(limit)],
+  })
+  return result.rows.map(withImage)
+}
+
 export async function updateAppwriteBikeStatus(id: string, status: BikeRecord['status']) {
   return appwriteTables.updateRow<BikeRecord>({ databaseId: appwriteDatabaseId, tableId, rowId: id, data: { status } })
 }

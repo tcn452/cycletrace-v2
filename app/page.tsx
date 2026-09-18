@@ -30,7 +30,7 @@ export default function Home() {
         <a className="brand" href="#top" aria-label="CycleTrace home"><BrandMark variant="dark" /></a>
         <button className="menu-toggle" type="button" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}><span>{menuOpen ? <FiX /> : <FiMenu />}</span><b>{menuOpen ? 'Close' : 'Menu'}</b></button>
         <nav className={`main-nav${menuOpen ? ' open' : ''}`} aria-label="Main navigation">
-          <a href="/search" onClick={() => setMenuOpen(false)}>Search a bike</a><a href="#about" onClick={() => setMenuOpen(false)}>About</a><a href="#services" onClick={() => setMenuOpen(false)}>Services</a><a href="#how-it-works" onClick={() => setMenuOpen(false)}>How it works</a><a href="/organizations" onClick={() => setMenuOpen(false)}>For organisations</a><a href="#stories" onClick={() => setMenuOpen(false)}>Stories</a>
+          <a href="/search" onClick={() => setMenuOpen(false)}>Search a bike</a><a href="/search?filter=stolen" style={{ color: '#d9381e', fontWeight: 600 }} onClick={() => setMenuOpen(false)}>🚨 Stolen alerts</a><a href="#about" onClick={() => setMenuOpen(false)}>About</a><a href="#services" onClick={() => setMenuOpen(false)}>Services</a><a href="#how-it-works" onClick={() => setMenuOpen(false)}>How it works</a><a href="/organizations" onClick={() => setMenuOpen(false)}>For organisations</a><a href="#stories" onClick={() => setMenuOpen(false)}>Stories</a>
           {user ? (
             <>
               <Link className="mobile-menu-action" href="/dashboard" onClick={() => setMenuOpen(false)}>Dashboard</Link>
