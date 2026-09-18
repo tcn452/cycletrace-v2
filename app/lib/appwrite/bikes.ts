@@ -93,7 +93,7 @@ export async function updateAppwriteBikeDetails(
   return withImage(row)
 }
 
-export async function createAppwriteBike(input: NewBikeRecord) {
+export async function createAppwriteBike(input: NewBikeRecord, customOwnerId?: string) {
   const user = await appwriteAccount.get()
   const { photo, ...bikeData } = input
   const photoFileId = appwriteId.unique()
@@ -103,8 +103,8 @@ export async function createAppwriteBike(input: NewBikeRecord) {
       databaseId: appwriteDatabaseId,
       tableId,
       rowId: appwriteId.unique(),
-      data: { ...bikeData, ownerType: bikeData.ownerType || 'user', ownerId: user.$id, photoFileId },
-      permissions: [`read("any")`, `update("user:${user.$id}")`, `delete("user:${user.$id}")`],
+      data: { ...bikeData, ownerType: bikeData.ownerType || 'user', ownerId: customOwnerId || user.$id, photoFileId },
+      permissions: ['read("any")', `update("user:${user.$id}")`, `delete("user:${user.$id}")`],
     })
     return withImage(row)
   } catch (error) {

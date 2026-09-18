@@ -32,6 +32,9 @@ function RegisterForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const isAddBike = searchParams.get("mode") === "bike";
+  const isStoreRole =
+    searchParams.get("role") === "store-owner" ||
+    searchParams.get("mode") === "store";
   const { user, loading: authLoading } = useAuth();
 
   const [step, setStep] = useState(isAddBike ? 2 : 1);
@@ -46,6 +49,10 @@ function RegisterForm() {
 
   useEffect(() => {
     if (!authLoading) {
+      if (isStoreRole) {
+        router.replace("/store-owner/register");
+        return;
+      }
       if (user) {
         if (!isAddBike) {
           router.replace("/dashboard");
@@ -60,7 +67,7 @@ function RegisterForm() {
         }
       }
     }
-  }, [user, authLoading, isAddBike, router]);
+  }, [user, authLoading, isAddBike, isStoreRole, router]);
 
   function update(field: keyof typeof bikeForm, value: string) {
     setBikeForm((current) => ({ ...current, [field]: value }));

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import {
   FiArrowRight,
   FiCheck,
+  FiLock,
   FiPlus,
   FiShield,
   FiShoppingBag,
@@ -53,6 +54,8 @@ export default function StoreOwnerPage() {
       </DemoShell>
     );
   const { store, bikes } = workspace;
+  const isVerified = store.status === "verified";
+
   return (
     <DemoShell active="Overview" showSidebar>
       <div className="store-heading">
@@ -66,28 +69,88 @@ export default function StoreOwnerPage() {
             <span>records.</span>
           </h1>
           <p>
-            Register customer bikes and verify records from your store
-            workspace.
+            {isVerified
+              ? "Register customer bikes and manage records from your verified shop workspace."
+              : "Your shop application is awaiting administrator verification before tools are activated."}
           </p>
         </div>
-        <Link className="button button-green" href="/store-owner/register">
-          <FiPlus /> Register a customer bike
-        </Link>
+        {isVerified ? (
+          <Link className="button button-green" href="/store-owner/register">
+            <FiPlus /> Register a customer bike
+          </Link>
+        ) : (
+          <button
+            className="button"
+            disabled
+            style={{
+              opacity: 0.6,
+              cursor: "not-allowed",
+              background: "#e2e8e5",
+              color: "#6e7974",
+              border: "1px solid #cbd5d0",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "6px",
+            }}
+          >
+            <FiLock /> Registration locked (Pending verification)
+          </button>
+        )}
       </div>
-      <div className="store-banner">
-        <span className="store-banner-icon">
-          <FiShoppingBag />
+
+      <div
+        className="store-banner"
+        style={
+          !isVerified
+            ? {
+                background: "#fff9e6",
+                border: "1px solid #fae69e",
+                borderRadius: "12px",
+                padding: "16px 20px",
+              }
+            : undefined
+        }
+      >
+        <span
+          className="store-banner-icon"
+          style={!isVerified ? { background: "#f5a623", color: "#ffffff" } : undefined}
+        >
+          {isVerified ? <FiShoppingBag /> : <FiLock />}
         </span>
         <div>
-          <strong>Store status: {store.status}</strong>
-          <p>
-            {store.status === "verified"
-              ? "Your registration tools are active."
-              : "Verification normally takes 1–2 business days."}
+          <strong style={{ fontSize: "15px" }}>
+            {isVerified
+              ? "Store Status: Verified"
+              : store.status === "rejected"
+              ? "Store Status: Application Rejected"
+              : "Store Status: Pending Administrator Verification"}
+          </strong>
+          <p style={{ margin: "4px 0 0 0", fontSize: "13px" }}>
+            {isVerified
+              ? "Your registration tools are active. You can register customer bicycles directly to your shop workspace."
+              : "Registration tools are locked until CycleTrace administrators verify your shop credentials. Verification normally takes 1–2 business days."}
           </p>
+          {!isVerified && (
+            <div style={{ marginTop: "10px" }}>
+              <Link
+                href="/admin"
+                className="button button-small button-dark"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  fontSize: "11px",
+                  padding: "6px 12px",
+                }}
+              >
+                <FiShield /> Verify this store in Admin Dashboard
+              </Link>
+            </div>
+          )}
         </div>
       </div>
       <OrganizationStatus status={store.status} />
+
       <div className="dashboard-stats">
         <div>
           <span>Bikes registered</span>
@@ -95,35 +158,61 @@ export default function StoreOwnerPage() {
           <small>Live records</small>
         </div>
         <div>
-          <span>Protected</span>
+          <span>Active records</span>
           <strong>
-            {bikes.filter((bike) => bike.status === "protected").length}
+            {bikes.filter((bike) => bike.status !== "stolen").length}
           </strong>
-          <small>Live records</small>
+          <small>In registry</small>
         </div>
         <div>
           <span>Shop status</span>
-          <strong className="green-text">{store.status}</strong>
-          <small>Verified status</small>
+          <strong className={isVerified ? "green-text" : "status-pending"}>
+            {store.status}
+          </strong>
+          <small>{isVerified ? "Tools active" : "Locked pending review"}</small>
         </div>
       </div>
+
       <section className="store-actions">
         <div className="store-action-card">
           <span className="store-action-icon">
             <FiShoppingBag />
           </span>
-          <h2>Register a bike</h2>
-          <p>Capture customer ownership details and a bike photo.</p>
-          <Link className="button button-dark" href="/store-owner/register">
-            Start registration <FiArrowRight />
-          </Link>
+          <h2>Register a customer bike</h2>
+          <p>
+            {isVerified
+              ? "Capture customer ownership details and create a verified registry record."
+              : "Registration tools are locked until your shop profile is approved by an administrator."}
+          </p>
+          {isVerified ? (
+            <Link className="button button-dark" href="/store-owner/register">
+              Start registration <FiArrowRight />
+            </Link>
+          ) : (
+            <button
+              className="button"
+              disabled
+              style={{
+                opacity: 0.6,
+                cursor: "not-allowed",
+                background: "#f0f4f2",
+                color: "#7b8681",
+                border: "1px solid #dce2df",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "6px",
+              }}
+            >
+              <FiLock /> Verification required
+            </button>
+          )}
         </div>
         <div className="store-action-card">
           <span className="store-action-icon">
             <FiShield />
           </span>
           <h2>Verify a record</h2>
-          <p>Search the live public registry.</p>
+          <p>Search the live public registry before accepting trade-ins.</p>
           <Link className="button button-dark" href="/search">
             Search registry <FiArrowRight />
           </Link>
