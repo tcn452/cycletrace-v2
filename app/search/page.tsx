@@ -13,7 +13,7 @@ function SearchContent() {
   const initialQuery = searchParams.get('q') || ''
 
   const [query, setQuery] = useState(initialQuery)
-  const [filter, setFilter] = useState<'all' | 'stolen' | 'protected'>(initialFilter)
+  const [filter, setFilter] = useState<'all' | 'stolen'>(initialFilter)
   const [searchResults, setSearchResults] = useState<BikeRecord[] | null>(null)
   const [stolenBikes, setStolenBikes] = useState<BikeRecord[]>([])
   const [allBikes, setAllBikes] = useState<BikeRecord[]>([])
@@ -79,17 +79,12 @@ function SearchContent() {
       list = searchResults
     } else if (filter === 'stolen') {
       list = stolenBikes
-    } else if (filter === 'protected') {
-      list = allBikes.filter((b) => b.status === 'protected')
     } else {
       list = allBikes
     }
 
     if (filter === 'stolen' && searchResults !== null) {
       return list.filter((b) => b.status === 'stolen')
-    }
-    if (filter === 'protected' && searchResults !== null) {
-      return list.filter((b) => b.status === 'protected')
     }
     return list
   }, [searchResults, filter, stolenBikes, allBikes])
@@ -109,7 +104,9 @@ function SearchContent() {
 
       <form className="registry-search-form" onSubmit={handleFormSubmit}>
         <div className="large-search-input">
-          <FiSearch />
+          <span>
+            <FiSearch />
+          </span>
           <input
             value={query}
             onChange={(event) => setQuery(event.target.value)}
@@ -226,23 +223,6 @@ function SearchContent() {
           <FiAlertTriangle /> Stolen Bicycle Alerts ({stolenBikes.length})
         </button>
 
-        <button
-          type="button"
-          onClick={() => setFilter('protected')}
-          style={{
-            padding: '7px 14px',
-            borderRadius: '20px',
-            border: filter === 'protected' ? '1px solid #167240' : '1px solid #dce4e0',
-            background: filter === 'protected' ? '#167240' : '#ffffff',
-            color: filter === 'protected' ? '#ffffff' : '#4f5d56',
-            fontSize: '12px',
-            fontWeight: 600,
-            cursor: 'pointer',
-          }}
-        >
-          Protected ({allBikes.filter((b) => b.status === 'protected').length})
-        </button>
-
         {searchResults !== null && (
           <button
             type="button"
@@ -322,7 +302,7 @@ function SearchContent() {
                         </>
                       ) : (
                         <>
-                          <FiCheck /> {bike.status}
+                          <FiCheck /> Verified
                         </>
                       )}
                     </span>
