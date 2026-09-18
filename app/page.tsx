@@ -1,9 +1,11 @@
 'use client'
 
+import Link from 'next/link'
 import { FormEvent, useState } from 'react'
 import { FiArrowRight, FiArrowUpRight, FiMenu, FiX } from 'react-icons/fi'
 import { BrandMark } from './components/BrandMark'
 import { PublicAboutSections } from './components/PublicAboutSections'
+import { useAuth } from './lib/appwrite/AuthContext'
 
 const steps = [
   ['01', 'Register your bike', 'Add the details that make your bike yours. It takes less than five minutes.'],
@@ -14,6 +16,7 @@ const steps = [
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [query, setQuery] = useState('')
+  const { user, logout } = useAuth()
 
   function search(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -27,9 +30,32 @@ export default function Home() {
         <a className="brand" href="#top" aria-label="CycleTrace home"><BrandMark variant="dark" /></a>
         <button className="menu-toggle" type="button" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}><span>{menuOpen ? <FiX /> : <FiMenu />}</span><b>{menuOpen ? 'Close' : 'Menu'}</b></button>
         <nav className={`main-nav${menuOpen ? ' open' : ''}`} aria-label="Main navigation">
-          <a href="/search" onClick={() => setMenuOpen(false)}>Search a bike</a><a href="#about" onClick={() => setMenuOpen(false)}>About</a><a href="#services" onClick={() => setMenuOpen(false)}>Services</a><a href="#how-it-works" onClick={() => setMenuOpen(false)}>How it works</a><a href="/organizations" onClick={() => setMenuOpen(false)}>For organisations</a><a href="#stories" onClick={() => setMenuOpen(false)}>Stories</a><a className="mobile-menu-action" href="/login" onClick={() => setMenuOpen(false)}>Log in</a><a className="mobile-menu-action mobile-menu-register" href="/register" onClick={() => setMenuOpen(false)}>Register a bike <FiArrowUpRight /></a>
+          <a href="/search" onClick={() => setMenuOpen(false)}>Search a bike</a><a href="#about" onClick={() => setMenuOpen(false)}>About</a><a href="#services" onClick={() => setMenuOpen(false)}>Services</a><a href="#how-it-works" onClick={() => setMenuOpen(false)}>How it works</a><a href="/organizations" onClick={() => setMenuOpen(false)}>For organisations</a><a href="#stories" onClick={() => setMenuOpen(false)}>Stories</a>
+          {user ? (
+            <>
+              <Link className="mobile-menu-action" href="/dashboard" onClick={() => setMenuOpen(false)}>Dashboard</Link>
+              <button type="button" className="mobile-menu-action mobile-menu-register" onClick={() => { setMenuOpen(false); logout(); }}>Sign out</button>
+            </>
+          ) : (
+            <>
+              <a className="mobile-menu-action" href="/login" onClick={() => setMenuOpen(false)}>Log in</a>
+              <a className="mobile-menu-action mobile-menu-register" href="/register" onClick={() => setMenuOpen(false)}>Register a bike <FiArrowUpRight /></a>
+            </>
+          )}
         </nav>
-        <div className="header-actions"><a className="login-link" href="/login">Log in</a><a className="button button-dark button-small" href="/register">Register a bike <FiArrowUpRight /></a></div>
+        <div className="header-actions">
+          {user ? (
+            <>
+              <Link className="login-link" href="/dashboard">Dashboard</Link>
+              <button type="button" className="button button-dark button-small" onClick={() => logout()}>Sign out</button>
+            </>
+          ) : (
+            <>
+              <a className="login-link" href="/login">Log in</a>
+              <a className="button button-dark button-small" href="/register">Register a bike <FiArrowUpRight /></a>
+            </>
+          )}
+        </div>
       </header>
 
       <main id="top">

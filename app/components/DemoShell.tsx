@@ -9,6 +9,7 @@ import {
   FiGrid,
   FiHelpCircle,
   FiHome,
+  FiLogOut,
   FiMenu,
   FiPlus,
   FiSearch,
@@ -16,7 +17,7 @@ import {
   FiShield,
   FiX,
 } from "react-icons/fi";
-import { getCurrentAppwriteUser } from "../lib/appwrite/auth";
+import { useAuth } from "../lib/appwrite/AuthContext";
 import { BrandMark } from "./BrandMark";
 
 export function DemoShell({
@@ -29,17 +30,9 @@ export function DemoShell({
   showSidebar?: boolean;
 }) {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
-  const [userName, setUserName] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  useEffect(() => {
-    if (showSidebar)
-      getCurrentAppwriteUser().then((user) => {
-        if (user) {
-          setUserName(user.name || user.email);
-          setUserEmail(user.email);
-        }
-      });
-  }, [showSidebar]);
+  const { user, logout } = useAuth();
+  const userName = user?.name || user?.email || "";
+  const userEmail = user?.email || "";
   const links: { label: string; href: string; icon: ReactNode }[] = [
     { label: "Overview", href: "/dashboard", icon: <FiHome /> },
     { label: "My bikes", href: "/dashboard#bikes", icon: <FiGrid /> },
@@ -89,9 +82,15 @@ export function DemoShell({
               <strong>{userName || "CycleTrace account"}</strong>
               <small>{userEmail || "Appwrite workspace"}</small>
             </span>
-            <span className="more-dot">
-              <FiShield />
-            </span>
+            <button
+              type="button"
+              className="sidebar-signout-btn"
+              onClick={() => logout()}
+              title="Sign out"
+              aria-label="Sign out"
+            >
+              <FiLogOut />
+            </button>
           </div>
         </aside>
       )}
@@ -134,7 +133,7 @@ export function DemoShell({
                 </Link>
                 <Link
                   className="button button-dark button-small"
-                  href="/register"
+                  href="/register?mode=bike"
                 >
                   Add a bike <FiPlus />
                 </Link>
@@ -143,20 +142,41 @@ export function DemoShell({
               <nav className="public-top-nav">
                 <Link href="/search">Search a bike</Link>
                 <Link href="/organizations">For organisations</Link>
-                <Link href="/login">Log in</Link>
-                <Link
-                  className="button button-dark button-small"
-                  href="/onboarding"
-                >
-                  Get started <FiArrowUpRight />
-                </Link>
+                {user ? (
+                  <>
+                    <Link href="/dashboard">Dashboard</Link>
+                    <button
+                      type="button"
+                      className="button button-dark button-small"
+                      onClick={() => logout()}
+                    >
+                      Sign out
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <Link href="/login">Log in</Link>
+                    <Link
+                      className="button button-dark button-small"
+                      href="/onboarding"
+                    >
+                      Get started <FiArrowUpRight />
+                    </Link>
+                  </>
+                )}
               </nav>
             )}
           </div>
           {!showSidebar && (
-            <Link className="public-mobile-start" href="/onboarding">
-              Get started <FiArrowUpRight />
-            </Link>
+            user ? (
+              <Link className="public-mobile-start" href="/dashboard">
+                Dashboard <FiArrowUpRight />
+              </Link>
+            ) : (
+              <Link className="public-mobile-start" href="/onboarding">
+                Get started <FiArrowUpRight />
+              </Link>
+            )
           )}
         </header>
         <main className="app-main">{children}</main>

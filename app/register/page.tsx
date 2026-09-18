@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { ChangeEvent, FormEvent, Suspense, useEffect, useState } from "react";
 import {
   FiArrowRight,
   FiCamera,
@@ -11,6 +12,7 @@ import {
 } from "react-icons/fi";
 import { DemoShell } from "../components/DemoShell";
 import { AppwriteException } from "appwrite";
+import { useAuth } from "../lib/appwrite/AuthContext";
 import { createOrResumeAppwriteAccount } from "../lib/appwrite/auth";
 import { createAppwriteBike } from "../lib/appwrite/bikes";
 
@@ -26,8 +28,13 @@ const emptyForm = {
   password: "",
 };
 
-export default function RegisterPage() {
-  const [step, setStep] = useState(1);
+function RegisterForm() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const isAddBike = searchParams.get("mode") === "bike";
+  const { user, loading: authLoading } = useAuth();
+
+  const [step, setStep] = useState(isAddBike ? 2 : 1);
   const [createdBikeId, setCreatedBikeId] = useState("");
   const [photoPreview, setPhotoPreview] = useState("");
   const [photoName, setPhotoName] = useState("");
@@ -36,6 +43,24 @@ export default function RegisterPage() {
   const [registrationError, setRegistrationError] = useState("");
   const [saving, setSaving] = useState(false);
   const [accountReady, setAccountReady] = useState(false);
+
+  useEffect(() => {
+    if (!authLoading) {
+      if (user) {
+        if (!isAddBike) {
+          router.replace("/dashboard");
+        } else {
+          setAccountReady(true);
+          setStep((prev) => (prev === 1 ? 2 : prev));
+          setBikeForm((prev) => ({
+            ...prev,
+            ownerName: prev.ownerName || user.name || "",
+            email: prev.email || user.email || "",
+          }));
+        }
+      }
+    }
+  }, [user, authLoading, isAddBike, router]);
 
   function update(field: keyof typeof bikeForm, value: string) {
     setBikeForm((current) => ({ ...current, [field]: value }));
@@ -144,14 +169,27 @@ export default function RegisterPage() {
       body: "Your secure account keeps every ownership record connected to you.",
     },
     2: {
-      title: "Now add your bike.",
+      title: isAddBike ? "Add your bike." : "Now add your bike.",
       body: "Capture the details that identify it and help prove ownership.",
     },
     3: {
       title: "Check the record.",
       body: "Make sure everything is accurate before the bike goes on the map.",
     },
-  }[step];
+  }[step] || {
+    title: "Now add your bike.",
+    body: "Capture the details that identify it and help prove ownership.",
+  };
+
+  if (authLoading || (!isAddBike && user)) {
+    return (
+      <DemoShell active="My bikes">
+        <div className="empty-state">
+          <p>Checking authentication…</p>
+        </div>
+      </DemoShell>
+    );
+  }
 
   if (createdBikeId)
     return (
@@ -197,9 +235,15 @@ export default function RegisterPage() {
         </div>
         <div className="form-card">
           <div className="form-progress">
-            <span className="active">01 Account</span>
-            <span className={step > 1 ? "active" : ""}>02 Bike details</span>
-            <span className={step > 2 ? "active" : ""}>03 Review</span>
+            {!isAddBike && (
+              <span className={step >= 1 ? "active" : ""}>01 Account</span>
+            )}
+            <span className={step >= 2 ? "active" : ""}>
+              {isAddBike ? "01" : "02"} Bike details
+            </span>
+            <span className={step > 2 ? "active" : ""}>
+              {isAddBike ? "02" : "03"} Review
+            </span>
           </div>
           <form onSubmit={next}>
             {step === 1 && (
@@ -418,7 +462,7 @@ export default function RegisterPage() {
                     : "Continue"}{" "}
                 <FiArrowRight />
               </button>
-              {step > 1 && !saving && (
+              {step > (isAddBike ? 2 : 1) && !saving && (
                 <button
                   type="button"
                   className="text-button"
@@ -432,5 +476,21 @@ export default function RegisterPage() {
         </div>
       </div>
     </DemoShell>
+  );
+}
+
+export default function RegisterPage() {
+  return (
+    <Suspense
+      fallback={
+        <DemoShell active="My bikes">
+          <div className="empty-state">
+            <p>Loading…</p>
+          </div>
+        </DemoShell>
+      }
+    >
+      <RegisterForm />
+    </Suspense>
   );
 }
