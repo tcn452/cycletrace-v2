@@ -12,3 +12,16 @@ export async function GET() {
     return NextResponse.json({ error: error instanceof Error ? error.message : 'Appwrite health check failed.' }, { status: 500 })
   }
 }
+
+export async function POST() {
+  try {
+    const bucketId = process.env.NEXT_PUBLIC_APPWRITE_BIKE_PHOTOS_BUCKET_ID
+    if (!bucketId) throw new Error('Bike photo bucket is not configured.')
+    const { storage, Permission, Role } = createAdminServices()
+    const bucket = await storage.getBucket({ bucketId })
+    await storage.updateBucket({ bucketId, name: bucket.name, permissions: [Permission.create(Role.users())], fileSecurity: true })
+    return NextResponse.json({ ok: true })
+  } catch (error) {
+    return NextResponse.json({ error: error instanceof Error ? error.message : 'Bucket repair failed.' }, { status: 500 })
+  }
+}
