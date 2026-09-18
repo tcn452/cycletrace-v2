@@ -14,6 +14,8 @@ export type BikeRecord = Models.Row & {
   status: 'protected' | 'stolen' | 'transferred'
   createdAt: string
   image?: string
+  handoverRef?: string
+  storeOwnerId?: string
 }
 
 export type NewBikeRecord = Pick<BikeRecord, 'brand' | 'model' | 'serialNumber' | 'year' | 'colour' | 'location' | 'status' | 'createdAt'> & { ownerType?: 'user' | 'store'; photo: File }
