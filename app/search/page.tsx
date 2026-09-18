@@ -27,7 +27,7 @@ export default function SearchPage() {
     }
   }
 
-  return <DemoShell active="Search registry"><div className="page-heading compact-heading"><div><p className="eyebrow dark-eyebrow">Public registry</p><h1>Search the <span>trace.</span></h1><p>Check a serial number, brand or model before you buy, sell or insure a bike.</p></div><span className="secure-note"><FiCheck /> Live Appwrite registry</span></div>
+  return <DemoShell active="Search registry"><div className="page-heading compact-heading"><div><p className="eyebrow dark-eyebrow">Public registry</p><h1>Search the <span>trace.</span></h1><p>Check a serial number, brand or model before you buy, sell or insure a bike.</p></div><span className="secure-note"><FiCheck /> Live verified registry</span></div>
     <form className="registry-search-form" onSubmit={submit}><div className="large-search-input"><FiSearch /><input required value={query} onChange={event => setQuery(event.target.value)} placeholder="Search serial number, brand or model" /><button className="button button-green" type="submit" disabled={loading}>{loading ? 'Searching…' : 'Search registry'} <FiArrowRight /></button></div></form>
     {error && <p className="auth-error" role="alert">{error}</p>}
     <div className="results-header"><div><strong>{!searched ? 'Enter a search above' : `${results.length} ${results.length === 1 ? 'bike' : 'bikes'} found`}</strong>{searched && <span> in live public records</span>}</div></div>

@@ -50,7 +50,7 @@ export function DemoShell({
           >
             <BrandMark variant="dark" />
           </Link>
-          <div className="demo-badge">LIVE APPWRITE</div>
+          <div className="demo-badge">VERIFIED REGISTRY</div>
           <nav className="app-nav">
             {links.map(({ label, href, icon }) => (
               <Link
@@ -80,7 +80,7 @@ export function DemoShell({
             </span>
             <span>
               <strong>{userName || "CycleTrace account"}</strong>
-              <small>{userEmail || "Appwrite workspace"}</small>
+              <small>{userEmail || "CycleTrace workspace"}</small>
             </span>
             <button
               type="button"

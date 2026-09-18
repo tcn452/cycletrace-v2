@@ -152,7 +152,7 @@ function RegisterForm() {
         );
       else
         setRegistrationError(
-          `Appwrite could not save the ${stage}: ${error.message}`,
+          `Could not save the ${stage}: ${error.message}`,
         );
     } else {
       setRegistrationError(
@@ -205,7 +205,7 @@ function RegisterForm() {
             <span>on the map.</span>
           </h1>
           <p>
-            The live Appwrite record for {bikeForm.brand} {bikeForm.model} has
+            The live record for {bikeForm.brand} {bikeForm.model} has
             been created.
           </p>
           <div className="success-code">

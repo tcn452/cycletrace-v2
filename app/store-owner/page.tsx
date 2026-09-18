@@ -26,7 +26,7 @@ export default function StoreOwnerPage() {
   if (workspace === undefined)
     return (
       <DemoShell showSidebar>
-        <div className="empty-state">Loading store records from Appwrite…</div>
+        <div className="empty-state">Loading store records…</div>
       </DemoShell>
     );
   if (!workspace)
@@ -45,7 +45,7 @@ export default function StoreOwnerPage() {
       <DemoShell showSidebar>
         <div className="empty-state">
           <h3>No store profile found</h3>
-          <p>Create an Appwrite store-owner record for this account.</p>
+          <p>Create a store-owner record for this account.</p>
           <Link className="button button-green" href="/store-owner/onboarding">
             Create store profile
           </Link>
@@ -66,7 +66,7 @@ export default function StoreOwnerPage() {
             <span>records.</span>
           </h1>
           <p>
-            Register customer bikes and verify records from your Appwrite
+            Register customer bikes and verify records from your store
             workspace.
           </p>
         </div>
@@ -104,7 +104,7 @@ export default function StoreOwnerPage() {
         <div>
           <span>Shop status</span>
           <strong className="green-text">{store.status}</strong>
-          <small>Appwrite record</small>
+          <small>Verified status</small>
         </div>
       </div>
       <section className="store-actions">

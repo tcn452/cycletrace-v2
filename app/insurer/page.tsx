@@ -29,7 +29,7 @@ export default function InsurerPage() {
     return (
       <DemoShell showSidebar>
         <div className="empty-state">
-          Loading insurer records from Appwrite…
+          Loading insurer records…
         </div>
       </DemoShell>
     );
@@ -38,7 +38,7 @@ export default function InsurerPage() {
       <DemoShell showSidebar>
         <div className="empty-state">
           <h3>Sign in to an insurer account</h3>
-          <p>This workspace requires an Appwrite insurer membership.</p>
+          <p>This workspace requires an active insurer membership.</p>
           <Link className="button button-green" href="/login">
             Sign in
           </Link>
@@ -50,7 +50,7 @@ export default function InsurerPage() {
       <DemoShell showSidebar>
         <div className="empty-state">
           <h3>No insurer membership found</h3>
-          <p>Your Appwrite user is not linked to an insurer organization.</p>
+          <p>Your account is not linked to an insurer organization.</p>
           <Link className="button button-green" href="/insurer/onboarding">
             Request insurer access
           </Link>
@@ -91,7 +91,7 @@ export default function InsurerPage() {
       <div className="insurer-banner">
         <div>
           <span className="live-label">
-            <i /> Appwrite connected
+            <i /> Connected
           </span>
           <h2>
             Coverage decisions,
@@ -112,7 +112,7 @@ export default function InsurerPage() {
         <div>
           <span>Verification checks</span>
           <strong>{workspace.checks.length}</strong>
-          <small>Appwrite records</small>
+          <small>Verified records</small>
         </div>
         <div>
           <span>Open claims</span>

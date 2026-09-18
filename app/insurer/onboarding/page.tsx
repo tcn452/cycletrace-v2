@@ -87,7 +87,7 @@ export default function InsurerOnboardingPage() {
               <strong>Responsible access</strong>
               <small>
                 Organization records remain private and role-controlled in
-                Appwrite.
+                CycleTrace.
               </small>
             </span>
           </div>

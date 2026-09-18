@@ -26,7 +26,7 @@ export default function OrganizationsPage() {
         </div>
         <div className="org-stat-card">
           <span className="live-label">
-            <i /> Appwrite connected
+            <i /> Connected
           </span>
           <FiShield />
           <p>
@@ -60,7 +60,7 @@ export default function OrganizationsPage() {
             <strong>03</strong>
             <h3>Control access</h3>
             <p>
-              Use Appwrite memberships and row permissions to keep sensitive
+              Use role-based memberships and granular permissions to keep sensitive
               records private.
             </p>
           </div>
