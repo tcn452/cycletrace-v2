@@ -8,7 +8,7 @@
 
     @page {
       size: A4;
-      margin: 16mm 14mm 16mm 14mm;
+      margin: 14mm 12mm 14mm 12mm;
       @bottom-right {
         content: counter(page);
       }
@@ -24,8 +24,8 @@
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       color: #1a2421;
       background: #ffffff;
-      line-height: 1.55;
-      font-size: 10pt;
+      line-height: 1.5;
+      font-size: 9.5pt;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
     }
@@ -87,7 +87,7 @@
     }
 
     .cover-eyebrow {
-      font-size: 10pt;
+      font-size: 9.5pt;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.12em;
@@ -101,12 +101,12 @@
 
     .cover-title {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 32pt;
+      font-size: 30pt;
       font-weight: 700;
       line-height: 1.1;
       letter-spacing: -0.04em;
       color: #121b18;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .cover-title span {
@@ -114,18 +114,34 @@
     }
 
     .cover-subtitle {
-      font-size: 13pt;
+      font-size: 12pt;
       color: #4b5563;
-      max-width: 580px;
+      max-width: 600px;
       line-height: 1.5;
+    }
+
+    .cover-special-note {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-left: 4px solid #15803d;
+      border-radius: 6px;
+      padding: 12px 14px;
+      margin-top: 18px;
+      font-size: 9pt;
+      color: #334155;
+      max-width: 620px;
+    }
+
+    .cover-special-note strong {
+      color: #15803d;
     }
 
     .cover-meta {
       border-top: 1px solid #dfe5e2;
-      padding-top: 24px;
+      padding-top: 20px;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      gap: 16px;
       font-size: 8.5pt;
     }
 
@@ -152,9 +168,9 @@
     }
 
     h1 {
-      font-size: 20pt;
-      margin-bottom: 12px;
-      padding-bottom: 8px;
+      font-size: 18pt;
+      margin-bottom: 10px;
+      padding-bottom: 6px;
       border-bottom: 2px solid #121b18;
       display: flex;
       align-items: center;
@@ -162,62 +178,62 @@
     }
 
     h1 .section-num {
-      font-size: 11pt;
+      font-size: 10pt;
       background: #121b18;
       color: #ffffff;
-      padding: 3px 10px;
-      border-radius: 6px;
+      padding: 2px 9px;
+      border-radius: 5px;
       font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
     h2 {
-      font-size: 13pt;
-      margin: 18px 0 8px;
+      font-size: 12pt;
+      margin: 14px 0 6px;
       color: #166534;
       border-left: 3px solid #166534;
       padding-left: 8px;
     }
 
     h3 {
-      font-size: 11pt;
-      margin: 12px 0 6px;
+      font-size: 10.5pt;
+      margin: 10px 0 4px;
     }
 
     p {
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       color: #374151;
-      line-height: 1.55;
+      line-height: 1.5;
     }
 
     /* Action Steps & Callouts */
     .step-box {
       background: #f8faf9;
       border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 14px 16px;
-      margin: 12px 0;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+      border-radius: 7px;
+      padding: 12px 14px;
+      margin: 10px 0;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
     }
 
     .step-header {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 8px;
+      gap: 8px;
+      margin-bottom: 6px;
     }
 
     .step-badge {
       background: #121b18;
       color: #ffffff;
-      font-size: 8pt;
+      font-size: 7.5pt;
       font-weight: 800;
-      padding: 2px 8px;
+      padding: 2px 7px;
       border-radius: 4px;
     }
 
     .step-title {
       font-weight: 700;
-      font-size: 10.5pt;
+      font-size: 10pt;
       color: #121b18;
     }
 
@@ -225,10 +241,10 @@
       background: #fefce8;
       border: 1px solid #fef08a;
       border-left: 4px solid #ca8a04;
-      padding: 10px 14px;
+      padding: 9px 12px;
       border-radius: 6px;
-      margin: 10px 0;
-      font-size: 9pt;
+      margin: 8px 0;
+      font-size: 8.5pt;
       color: #713f12;
     }
 
@@ -236,19 +252,19 @@
       display: block;
       color: #854d0e;
       text-transform: uppercase;
-      font-size: 7.5pt;
+      font-size: 7pt;
       letter-spacing: 0.08em;
-      margin-bottom: 3px;
+      margin-bottom: 2px;
     }
 
     .note-box {
       background: #ecfdf5;
       border: 1px solid #a7f3d0;
       border-left: 4px solid #059669;
-      padding: 10px 14px;
+      padding: 9px 12px;
       border-radius: 6px;
-      margin: 10px 0;
-      font-size: 9pt;
+      margin: 8px 0;
+      font-size: 8.5pt;
       color: #065f46;
     }
 
@@ -256,22 +272,22 @@
       display: block;
       color: #047857;
       text-transform: uppercase;
-      font-size: 7.5pt;
+      font-size: 7pt;
       letter-spacing: 0.08em;
-      margin-bottom: 3px;
+      margin-bottom: 2px;
     }
 
     /* Tables */
     table {
       width: 100%;
       border-collapse: collapse;
-      margin: 14px 0;
-      font-size: 8.5pt;
+      margin: 10px 0;
+      font-size: 8pt;
     }
 
     th, td {
       border: 1px solid #e2e8f0;
-      padding: 7px 10px;
+      padding: 6px 8px;
       text-align: left;
       vertical-align: top;
     }
@@ -281,7 +297,7 @@
       color: #0f172a;
       font-weight: 700;
       text-transform: uppercase;
-      font-size: 7.5pt;
+      font-size: 7pt;
       letter-spacing: 0.05em;
     }
 
@@ -294,53 +310,53 @@
       background: #edf2f7;
       padding: 1px 4px;
       border-radius: 3px;
-      font-size: 8.5pt;
+      font-size: 8pt;
       color: #0f172a;
     }
 
     ul, ol {
-      margin-left: 18px;
-      margin-bottom: 10px;
+      margin-left: 16px;
+      margin-bottom: 8px;
       color: #374151;
-      font-size: 9.5pt;
+      font-size: 9pt;
     }
 
     li {
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
 
     .grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 14px;
+      gap: 12px;
     }
 
     .card {
       border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 12px 14px;
+      border-radius: 7px;
+      padding: 10px 12px;
       background: #ffffff;
     }
 
     .card h4 {
-      font-size: 9.5pt;
+      font-size: 9pt;
       color: #121b18;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
 
     .card p {
-      font-size: 8.5pt;
+      font-size: 8pt;
       color: #64748b;
       margin-bottom: 0;
     }
 
     .badge {
       display: inline-block;
-      font-size: 7pt;
+      font-size: 6.5pt;
       font-weight: 700;
       text-transform: uppercase;
-      padding: 2px 6px;
-      border-radius: 4px;
+      padding: 2px 5px;
+      border-radius: 3px;
     }
 
     .badge-green { background: #dcfce7; color: #166534; }
@@ -349,12 +365,12 @@
     .badge-blue { background: #dbeafe; color: #1e40af; }
 
     .header-tag {
-      font-size: 8pt;
+      font-size: 7.5pt;
       color: #64748b;
       text-align: right;
       border-bottom: 1px solid #f1f5f9;
-      padding-bottom: 4px;
-      margin-bottom: 16px;
+      padding-bottom: 3px;
+      margin-bottom: 12px;
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
@@ -372,25 +388,29 @@
     </div>
 
     <div class="cover-title-block">
-      <div class="cover-eyebrow">Interactive Application Guide</div>
+      <div class="cover-eyebrow">Interactive Testing & Operations Manual</div>
       <h1 class="cover-title">The Complete System <span>Walkthrough</span></h1>
       <p class="cover-subtitle">
-        A step-by-step companion guide designed for clients, partners, and stakeholders to test and explore CycleTrace alongside a live browser window.
+        A step-by-step companion guide designed for Daniel, partners, and stakeholders to test and explore CycleTrace alongside a live browser window.
       </p>
+
+      <div class="cover-special-note">
+        <strong>Orientation for Daniel:</strong> This updated edition covers all recent platform enhancements including the self-service <strong>Password Reset</strong> workflow, <strong>Stolen Bicycle Alerts</strong> registry filter, <strong>Store Owner Stock Handover with Verifiable Paper Trail Certificates</strong>, and the new <strong>Production Admin Passcode (<code>cycletrace-admin</code>)</strong>.
+      </div>
     </div>
 
     <div class="cover-meta">
       <div>
         <span>Application Version</span>
-        <strong>CycleTrace 1.0 (Production)</strong>
+        <strong>CycleTrace 2.0 (Production)</strong>
       </div>
       <div>
-        <span>Backend Architecture</span>
-        <strong>Appwrite Cloud & PayFast</strong>
+        <span>Prepared For</span>
+        <strong>Daniel & Stakeholder Review</strong>
       </div>
       <div>
-        <span>Published For</span>
-        <strong>Client Review & Stakeholder Walkthrough</strong>
+        <span>Live Deployment</span>
+        <strong>cycletrace-v2.vercel.app</strong>
       </div>
     </div>
   </div>
@@ -404,8 +424,8 @@
   <table>
     <thead>
       <tr>
-        <th style="width: 15%;">Section</th>
-        <th style="width: 35%;">Module / Feature</th>
+        <th style="width: 14%;">Section</th>
+        <th style="width: 36%;">Module / Feature</th>
         <th style="width: 25%;">Direct URL</th>
         <th style="width: 25%;">Target User Role</th>
       </tr>
@@ -419,15 +439,15 @@
       </tr>
       <tr>
         <td><strong>Section 3</strong></td>
-        <td>Public Portal & Serial Search</td>
-        <td><code>/search</code>, <code>/bikes/[id]</code></td>
+        <td>Public Portal, Serial Search & Stolen Alerts</td>
+        <td><code>/search</code>, <code>/search?filter=stolen</code></td>
         <td>Buyers, Police, Public</td>
       </tr>
       <tr>
         <td><strong>Section 4</strong></td>
-        <td>Authentication & Session Flow</td>
-        <td><code>/login</code>, <code>/register</code></td>
-        <td>Registered Members</td>
+        <td>Auth, Smart Redirection & Password Reset</td>
+        <td><code>/login</code>, <code>/forgot-password</code>, <code>/reset-password</code></td>
+        <td>All Users & Store Owners</td>
       </tr>
       <tr>
         <td><strong>Section 5</strong></td>
@@ -443,20 +463,20 @@
       </tr>
       <tr>
         <td><strong>Section 7</strong></td>
-        <td>Theft Flagging & Recovery Workflow</td>
+        <td>Theft Flagging & Community Tip Alert</td>
         <td><code>/dashboard/report</code></td>
         <td>Bicycle Owners</td>
       </tr>
       <tr>
         <td><strong>Section 8</strong></td>
-        <td>Safe Ownership Transfer Protocol</td>
+        <td>Peer-to-Peer Ownership Transfer Protocol</td>
         <td><code>/dashboard/transfer</code>, <code>/transfer/[token]</code></td>
         <td>Buyers & Sellers</td>
       </tr>
       <tr>
         <td><strong>Section 9</strong></td>
-        <td>Store Owner POS Handover Hub</td>
-        <td><code>/store-owner</code></td>
+        <td>Store Owner Stock & Handover Paper Trail</td>
+        <td><code>/store-owner</code>, <code>/store-owner/transfer</code></td>
         <td>Bike Shops & Retailers</td>
       </tr>
       <tr>
@@ -467,38 +487,44 @@
       </tr>
       <tr>
         <td><strong>Section 11</strong></td>
-        <td>Platform Admin & Approvals</td>
-        <td><code>/admin</code></td>
-        <td>CycleTrace Platform Admins</td>
+        <td>Platform Administration & Shop Approvals</td>
+        <td><code>/admin</code> (Passcode: <code>cycletrace-admin</code>)</td>
+        <td>Platform Administrators</td>
       </tr>
       <tr>
         <td><strong>Section 12</strong></td>
-        <td>Account & Security Preferences</td>
+        <td>Account Preferences & Contact Security</td>
         <td><code>/settings</code>, <code>/settings/billing</code></td>
         <td>All Signed-In Accounts</td>
       </tr>
       <tr>
         <td><strong>Section 13</strong></td>
-        <td>Side-by-Side Walkthrough Checklist</td>
-        <td>All Routes</td>
-        <td>Interactive Testing</td>
+        <td>Daniel's End-to-End Testing Checklist</td>
+        <td>All Platform Routes</td>
+        <td>Interactive Testing & QA</td>
+      </tr>
+      <tr>
+        <td><strong>Section 14</strong></td>
+        <td>Frequently Asked Questions & Support</td>
+        <td>Help Desk & Escalations</td>
+        <td>All Users</td>
       </tr>
     </tbody>
   </table>
 
-  <h2>How to Use This Manual</h2>
+  <h2>How to Use This Manual for Side-by-Side Testing</h2>
   <p>
-    This manual is structured so that a client or reviewer can place this document side-by-side with an active browser window. Every subsection contains a highlighted <strong>SIDE-BY-SIDE ACTION</strong> box with exact keystrokes, button names, test input values, and expected UI updates.
+    This manual is structured so that you can place this document side-by-side with an active browser window. Every subsection contains a highlighted <strong>SIDE-BY-SIDE ACTION</strong> box with exact URLs, button names, test input values, and expected UI updates.
   </p>
 
   <div class="grid-2">
     <div class="card">
-      <h4>Desktop Browser Setup</h4>
-      <p>Open Google Chrome, Safari, or Edge to <code>http://localhost:3000</code> or your live deployment URL. Keep developer tools console open if inspecting network requests.</p>
+      <h4>Browser & Environment</h4>
+      <p>Test on Google Chrome, Safari, or Edge pointing to <code>https://cycletrace-v2.vercel.app</code> (or local <code>http://localhost:3000</code>).</p>
     </div>
     <div class="card">
-      <h4>Live Appwrite Integration</h4>
-      <p>CycleTrace connects to Appwrite Cloud with live session cookies, table storage, and secure photo buckets. No dummy data is used—actions persist immediately.</p>
+      <h4>Live Cloud Persistence</h4>
+      <p>CycleTrace connects directly to Appwrite Cloud and local registry caches. Actions persist in real time with zero mocked data.</p>
     </div>
   </div>
 
@@ -509,10 +535,10 @@
   <h1>System Architecture & Security <span class="section-num">02</span></h1>
 
   <p>
-    CycleTrace is built with a verification-first approach designed specifically for South African bicycle ownership realities. It replaces fragmented paper records and social media theft posts with an immutable registry database.
+    CycleTrace is built with an immutable verification-first model designed for the realities of the South African cycling community. It bridges individual bicycle owners, independent bike shops, insurers, and law enforcement.
   </p>
 
-  <h2>Technical Foundation</h2>
+  <h2>Technical Stack Overview</h2>
   <table>
     <thead>
       <tr>
@@ -525,48 +551,54 @@
       <tr>
         <td><strong>Frontend</strong></td>
         <td>Next.js 15 (App Router), React 19, TypeScript</td>
-        <td>Server components, streaming layouts, and responsive client interfaces.</td>
+        <td>Server components, dynamic streaming layouts, and responsive client interfaces.</td>
       </tr>
       <tr>
         <td><strong>Authentication</strong></td>
-        <td>Appwrite Auth & Session Manager</td>
-        <td>Secure email/password authentication with automatic session cookies and role preferences.</td>
+        <td>Appwrite Auth, Session & Recovery API</td>
+        <td>Encrypted credentials, persistent sessions, and self-service account recovery tokens.</td>
       </tr>
       <tr>
         <td><strong>Database</strong></td>
-        <td>Appwrite TablesDB</td>
-        <td>Stores bike records, transfer tokens, organization applications, and member rosters.</td>
+        <td>Appwrite TablesDB & Local Synchronized Registry</td>
+        <td>Bicycle records, transfer records, organization applications, and verification queues.</td>
       </tr>
       <tr>
         <td><strong>Storage</strong></td>
-        <td>Appwrite Storage Bucket</td>
-        <td>Encrypted storage for bike photographs with strict role-based read/update permissions.</td>
+        <td>Appwrite Storage Bucket (<code>bikephotos</code>)</td>
+        <td>Encrypted storage for bicycle photographs with strict access permissions.</td>
       </tr>
       <tr>
         <td><strong>Onboarding</strong></td>
-        <td>OnboardJS React Engine</td>
-        <td>Interactive product tour with local storage persistence and Appwrite preference syncing.</td>
+        <td>OnboardJS React Tour Engine</td>
+        <td>Interactive product tour with local storage persistence and session synchronisation.</td>
       </tr>
       <tr>
-        <td><strong>Compliance</strong></td>
-        <td>POPIA Compliance Layer</td>
-        <td>Data minimisation, public serial verification without exposing personal contact details.</td>
+        <td><strong>Payments</strong></td>
+        <td>PayFast Integration</td>
+        <td>South African debit/credit card and Instant EFT subscription processing.</td>
+      </tr>
+      <tr>
+        <td><strong>POPIA Protection</strong></td>
+        <td>Data Minimisation Architecture</td>
+        <td>Public serial validation without ever exposing personal contact details or addresses.</td>
       </tr>
     </tbody>
   </table>
 
   <h2>Security & Privacy Principles</h2>
   <ul>
-    <li><strong>Public Anonymity:</strong> Anyone can verify a serial number publicly, but private owner details (full name, phone, residential address) are strictly protected and never displayed on public pages.</li>
-    <li><strong>Role-Based Access:</strong> Only bike owners can initiate transfers or flag thefts. Insurers and store owners must undergo admin verification before accessing elevated organizational workspaces.</li>
-    <li><strong>Transfer Token Integrity:</strong> Ownership transfers utilize cryptographic unique tokens with designated recipient email binding to eliminate fraudulent reassignment.</li>
+    <li><strong>POPIA Compliance:</strong> Public search results verify ownership authenticity and theft flags, but strictly withhold the owner's full name, phone number, and street address.</li>
+    <li><strong>Role Separation:</strong> Riders, Store Owners, Insurers, and Admins operate in isolated workspaces. Elevated roles require admin verification before privileged commercial tools unlock.</li>
+    <li><strong>Cryptographic Handover:</strong> Transfers utilize unique secure tokens tied to the designated recipient's email address to eliminate fraudulent serial claims.</li>
+    <li><strong>Production Cleanliness:</strong> Demo bypasses and direct admin links are hidden from user-facing screens to maintain strict security and production integrity.</li>
   </ul>
 
   <!-- SECTION 3: PUBLIC PORTAL & SERIAL SEARCH -->
   <div class="page-break"></div>
   <div class="header-tag">CycleTrace Client Instruction Manual · Page 4</div>
 
-  <h1>Public Portal & Serial Search <span class="section-num">03</span></h1>
+  <h1>Public Portal & Stolen Bicycle Alerts <span class="section-num">03</span></h1>
 
   <p>
     The public portal enables potential second-hand buyers, bike shops, and law enforcement to instantly verify a bike’s ownership and theft status before money changes hands.
@@ -575,28 +607,31 @@
   <div class="step-box">
     <div class="step-header">
       <span class="step-badge">STEP 1</span>
-      <span class="step-title">Landing Page Overview & Live Search Bar</span>
+      <span class="step-title">Landing Page & Live Serial Search</span>
     </div>
     <p>
-      Navigate to <code>/</code>. The homepage displays CycleTrace’s mission, how it works, testimonials, and a central serial search input.
+      Navigate to <code>/</code>. The homepage displays CycleTrace’s mission, verification badges, and a prominent search bar.
     </p>
     <div class="side-by-side-prompt">
       <strong>Side-by-Side Action:</strong>
-      Scroll to the search input under "Before you buy, check the trace". Enter a brand, model, or known serial number (e.g. <code>Specialized</code> or <code>WSBC</code>) and press <kbd>Enter</kbd> or click <strong>Search registry →</strong>.
+      Scroll to the search input under "Before you buy, check the trace". Enter a brand, model, or frame serial number (e.g. <code>Trek</code>, <code>Specialized</code>, or <code>WSBC</code>) and press <kbd>Enter</kbd> or click <strong>Search registry →</strong>.
     </div>
   </div>
 
   <div class="step-box">
     <div class="step-header">
       <span class="step-badge">STEP 2</span>
-      <span class="step-title">Live Registry Search Results (<code>/search</code>)</span>
+      <span class="step-title">NEW: Stolen Bicycle Alerts Hotlist (<code>/search?filter=stolen</code>)</span>
     </div>
     <p>
-      The registry query executes against the live Appwrite database. Matching bicycles are displayed with their photo, brand, model, color, registration year, and current protection status.
+      Users and spotters can view all bicycles currently flagged as stolen across the country so stolen bikes can be spotted and reported.
     </p>
     <div class="side-by-side-prompt">
       <strong>Side-by-Side Action:</strong>
-      On <code>/search</code>, click on any bicycle card result to open its detailed public record at <code>/bikes/[id]</code>.
+      1. Click the <strong>🚨 Stolen alerts</strong> link in the top navigation bar, or navigate to <code>/search?filter=stolen</code>.<br>
+      2. Notice the prominent red alert banner highlighting active theft cases.<br>
+      3. Filter or search among reported stolen bikes by brand, color, or SAPS CAS case reference.<br>
+      4. Click on any stolen bike card to inspect its distinguishing features, theft location, and recovery tip line.
     </div>
   </div>
 
@@ -611,18 +646,18 @@
     <ul>
       <li><strong>Protected Status:</strong> Displays a green checkmark indicating the bike is legitimately registered and clear of theft reports.</li>
       <li><strong>Stolen Alert:</strong> If flagged by the owner, a prominent red alert banner displays: <em>"This bike has been reported stolen. Do not purchase it."</em></li>
-      <li><strong>Frame Verification:</strong> Highlights the registered serial number so a buyer can inspect the physical bike frame on the spot.</li>
+      <li><strong>Frame Serial Verification:</strong> Highlights the registered serial number so a buyer can inspect the physical bike frame on the spot.</li>
     </ul>
   </div>
 
-  <!-- SECTION 4: AUTHENTICATION & NAVIGATION -->
+  <!-- SECTION 4: AUTHENTICATION & PASSWORD RESET -->
   <div class="page-break"></div>
   <div class="header-tag">CycleTrace Client Instruction Manual · Page 5</div>
 
-  <h1>Authentication & Smart Redirections <span class="section-num">04</span></h1>
+  <h1>Authentication & Self-Service Password Reset <span class="section-num">04</span></h1>
 
   <p>
-    CycleTrace features unified authentication state management. The navigation bar dynamically adapts to user state, and guest auth pages intelligently redirect signed-in users.
+    CycleTrace features unified authentication state management with automatic guest redirection and an official self-service password recovery system.
   </p>
 
   <h2>Authentication State Matrix</h2>
@@ -636,34 +671,34 @@
     </thead>
     <tbody>
       <tr>
-        <td><strong>Homepage Navbar</strong> (Desktop)</td>
-        <td>Shows "Log in" and "Register a bike" button</td>
-        <td>Shows "Dashboard" link and "Sign out" button</td>
-      </tr>
-      <tr>
-        <td><strong>Homepage Navbar</strong> (Mobile Drawer)</td>
+        <td><strong>Homepage Navbar</strong></td>
         <td>Shows "Log in" and "Register a bike"</td>
-        <td>Shows "Dashboard" link and "Sign out" action</td>
+        <td>Shows "Dashboard" and "Sign out" button</td>
       </tr>
       <tr>
-        <td><strong>DemoShell Topbar</strong> (Public)</td>
+        <td><strong>Topbar Search / Nav</strong></td>
         <td>Shows "Log in" and "Get started"</td>
         <td>Shows "Dashboard" and "Sign out" button</td>
       </tr>
       <tr>
-        <td><strong>DemoShell Sidebar</strong> (Workspace)</td>
-        <td>N/A (Workspace requires login)</td>
-        <td>Displays User Avatar, Name, Email, and Sign-out button (<code>FiLogOut</code>)</td>
-      </tr>
-      <tr>
         <td><strong>Login Route (<code>/login</code>)</strong></td>
-        <td>Displays member access email/password form</td>
+        <td>Displays email, password, and "Forgot password?" link</td>
         <td><strong>Automatically redirects to <code>/dashboard</code></strong></td>
       </tr>
       <tr>
         <td><strong>Register Route (<code>/register</code>)</strong></td>
-        <td>Displays 3-step registration flow</td>
+        <td>Displays 3-step member registration form</td>
         <td><strong>Automatically redirects to <code>/dashboard</code></strong> (Unless in <code>?mode=bike</code>)</td>
+      </tr>
+      <tr>
+        <td><strong>Password Recovery (<code>/forgot-password</code>)</strong></td>
+        <td>Displays email recovery form with dispatch confirmation</td>
+        <td>Accessible for account management</td>
+      </tr>
+      <tr>
+        <td><strong>Password Reset (<code>/reset-password</code>)</strong></td>
+        <td>Validates recovery token and captures new password</td>
+        <td>Confirms update and directs user to log in</td>
       </tr>
     </tbody>
   </table>
@@ -671,25 +706,29 @@
   <div class="step-box">
     <div class="step-header">
       <span class="step-badge">STEP 1</span>
-      <span class="step-title">Testing Sign-Out & Sign-In</span>
+      <span class="step-title">NEW: Requesting Password Recovery (<code>/forgot-password</code>)</span>
     </div>
     <div class="side-by-side-prompt">
       <strong>Side-by-Side Action:</strong>
-      1. Click <strong>Sign out</strong> from the topbar or sidebar.<br>
-      2. Notice how the navbar immediately changes back to "Log in" and "Register a bike".<br>
-      3. Navigate to <code>/login</code>. Enter your credentials and click <strong>Sign in →</strong>.<br>
-      4. Observe immediate redirect to <code>/dashboard</code> with the topbar and sidebar personalized to your account.
+      1. Navigate to <code>/login</code> and click <strong>Forgot password?</strong> next to the Password field.<br>
+      2. On <code>/forgot-password</code>, enter your registered account email (e.g. <code>you@example.com</code>).<br>
+      3. Click <strong>Send recovery instructions →</strong>.<br>
+      4. Observe the green confirmation screen detailing that recovery instructions have been dispatched.
     </div>
   </div>
 
   <div class="step-box">
     <div class="step-header">
       <span class="step-badge">STEP 2</span>
-      <span class="step-title">Verifying Guest Page Protection</span>
+      <span class="step-title">NEW: Executing Password Reset (<code>/reset-password</code>)</span>
     </div>
     <div class="side-by-side-prompt">
       <strong>Side-by-Side Action:</strong>
-      While logged in, manually type <code>/login</code> or <code>/register</code> in your browser address bar and hit enter. The application immediately detects your active session and redirects you to <code>/dashboard</code> without flashing the forms.
+      1. Open the recovery URL received in your email (or test using <code>/reset-password?userId=...&secret=...</code>).<br>
+      2. Enter your new password (minimum 8 characters required).<br>
+      3. Confirm the password to ensure they match.<br>
+      4. Click <strong>Update password →</strong>.<br>
+      5. Observe the success confirmation card with the <strong>Back to log in</strong> button.
     </div>
   </div>
 
@@ -697,7 +736,7 @@
   <div class="page-break"></div>
   <div class="header-tag">CycleTrace Client Instruction Manual · Page 6</div>
 
-  <h1>Rider Dashboard & Walkthrough Tour <span class="section-num">05</span></h1>
+  <h1>Rider Dashboard & Onboarding Guide <span class="section-num">05</span></h1>
 
   <p>
     The Rider Dashboard (<code>/dashboard</code>) is the central command center for bicycle owners to oversee their registered fleet, inspect live records, and trigger recovery actions.
@@ -883,10 +922,10 @@
   <div class="page-break"></div>
   <div class="header-tag">CycleTrace Client Instruction Manual · Page 9</div>
 
-  <h1>Secure Ownership Transfer Protocol <span class="section-num">08</span></h1>
+  <h1>Secure Peer-to-Peer Ownership Transfer Protocol <span class="section-num">08</span></h1>
 
   <p>
-    Selling or giving away a bicycle? CycleTrace enables verifiable cryptographic handovers, updating the provenance record and transferring management rights safely.
+    Selling or giving away a bicycle privately? CycleTrace enables verifiable cryptographic handovers, updating the provenance record and transferring management rights safely.
   </p>
 
   <h2>Two-Party Transfer Workflow</h2>
@@ -924,253 +963,343 @@
     The bike is immediately removed from the seller's active fleet and assigned to the buyer's account. The public provenance history logs the transfer timestamp.
   </div>
 
-  <!-- SECTION 9: ORGANIZATIONAL WORKSPACES -->
+  <!-- SECTION 9: STORE OWNER POS & PAPER TRAIL -->
   <div class="page-break"></div>
   <div class="header-tag">CycleTrace Client Instruction Manual · Page 10</div>
 
-  <h1>Organizations & Commercial Roles <span class="section-num">09</span></h1>
+  <h1>Store Owner POS Stock & Commercial Paper Trail <span class="section-num">09</span></h1>
 
   <p>
-    CycleTrace partners with bike shops, insurers, and recovery organizations. The Onboarding Hub (<code>/onboarding</code>) routes commercial teams to the appropriate workflow.
+    For bicycle retailers and bike shops, CycleTrace provides a specialized commercial workspace (<code>/store-owner</code>). Store owners register showroom stock, transfer ownership to customers upon sale, and issue verifiable digital & printable transfer certificates.
   </p>
 
-  <div class="grid-2">
-    <div class="card">
-      <h4>Store Owner Workspace (<code>/store-owner</code>)</h4>
-      <p>
-        Allows bicycle retail stores to register bicycles for customers directly at the point of sale. Ensures new owners leave the shop with verified digital protection active on day one.
-      </p>
-      <ul style="margin-top: 8px; font-size: 8pt;">
-        <li>Batch customer bike registrations</li>
-        <li>Custom store branding on handover</li>
-        <li>Proof of authorized retail chain</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h4>Insurer Workspace (<code>/insurer</code>)</h4>
-      <p>
-        Gives underwriting and claims teams instant serial verification tools. Insurers verify frame numbers before writing policies and validate claims history.
-      </p>
-      <ul style="margin-top: 8px; font-size: 8pt;">
-        <li>Instant serial fraud & duplicate checks</li>
-        <li>Active claims queue review</li>
-        <li>Confidence verification scores</li>
-      </ul>
-    </div>
-  </div>
+  <h2>Store Owner Workspace Structure (<code>/store-owner</code>)</h2>
+  <ul>
+    <li><strong>Store Profile & Verification Status:</strong> Displays store trade name, physical address, business reg, and verified badge.</li>
+    <li><strong>Inventory Metrics:</strong> Live count of <strong>Stock in store</strong> versus bikes <strong>Transferred to bikers</strong>.</li>
+    <li><strong>Shop Stock Inventory Tab:</strong> Displays all bikes held in store stock with brand, model, serial, and a 1-click <strong>Transfer to biker</strong> action.</li>
+    <li><strong>Customer Handover Paper Trail Log Tab:</strong> Complete historical ledger of every customer handover, showing Date, Bike, Frame Serial, Customer Name & Email, Invoice Number, and direct link to the Certificate.</li>
+  </ul>
 
-  <h2>Store Owner & Insurer Application Flow</h2>
   <div class="step-box">
     <div class="step-header">
-      <span class="step-badge">ACTION</span>
-      <span class="step-title">Submitting Organization Verification</span>
+      <span class="step-badge">STEP 1</span>
+      <span class="step-title">Registering Stock into the Showroom</span>
     </div>
     <div class="side-by-side-prompt">
       <strong>Side-by-Side Action:</strong>
-      1. Navigate to <code>/onboarding</code>.<br>
-      2. Click <strong>Store owner</strong> (or <strong>Insurer</strong>).<br>
-      3. Fill in the business registration number, contact person, phone, and address.<br>
-      4. Click <strong>Submit application →</strong>. The submission is queued in Appwrite under <code>organization_applications</code> for platform admin review.
+      1. On <code>/store-owner</code>, click <strong>Add stock bike</strong>.<br>
+      2. Enter the bicycle make, model, frame serial number, color, and photos.<br>
+      3. Submit the bike. It appears under the <strong>Shop Stock Inventory</strong> tab ready for floor display.
     </div>
   </div>
 
-  <!-- SECTION 10: PLATFORM ADMIN -->
+  <div class="step-box">
+    <div class="step-header">
+      <span class="step-badge">STEP 2</span>
+      <span class="step-title">Customer Handover & Transfer Form (<code>/store-owner/transfer</code>)</span>
+    </div>
+    <p>
+      When a customer purchases a bicycle, the shop owner initiates a verified retail transfer that binds the sale to an invoice reference.
+    </p>
+    <div class="side-by-side-prompt">
+      <strong>Side-by-Side Action:</strong>
+      1. Click <strong>Transfer to biker</strong> on any stock bike card.<br>
+      2. Enter the Customer's <strong>Full Name</strong>, <strong>Email Address</strong>, and <strong>Phone Number</strong>.<br>
+      3. Enter the <strong>Store Invoice / Receipt Ref</strong> (e.g. <code>INV-2026-0412</code>).<br>
+      4. Set Handover Date and optional Warranty / Service notes.<br>
+      5. Click <strong>Complete Transfer & Generate Paper Trail →</strong>.
+    </div>
+  </div>
+
+  <div class="step-box">
+    <div class="step-header">
+      <span class="step-badge">STEP 3</span>
+      <span class="step-title">Verifiable Transfer Certificate (<code>/store-owner/transfers/[id]/certificate</code>)</span>
+    </div>
+    <p>
+      An official Certificate of Ownership Transfer is instantly generated. This serves as an audit-ready paper trail for the customer, store, and insurer.
+    </p>
+    <div class="side-by-side-prompt">
+      <strong>Side-by-Side Action:</strong>
+      1. Click <strong>Print / Download Certificate</strong> from the completion screen or from the Paper Trail Log.<br>
+      2. Inspect the official verification seal, unique Certificate Serial Number (e.g. <code>CERT-CT-...</code>), frame serial, invoice reference, and dual signature sign-off lines.<br>
+      3. Use <kbd>Ctrl+P</kbd> / <kbd>Cmd+P</kbd> to print a clean, high-resolution physical handover sheet for the customer.
+    </div>
+  </div>
+
+  <!-- SECTION 10: INSURER WORKSPACE -->
   <div class="page-break"></div>
   <div class="header-tag">CycleTrace Client Instruction Manual · Page 11</div>
 
-  <h1>Platform Administration & Governance <span class="section-num">10</span></h1>
+  <h1>Insurer Verification & Underwriting Portal <span class="section-num">10</span></h1>
 
   <p>
-    The Platform Administration portal (<code>/admin</code>) allows authorized operators to review organization applications, manage memberships, and maintain registry integrity.
+    The Insurer Workspace (<code>/insurer</code>) equips insurance underwriters and claims adjusters with tools to verify bicycle legitimacy, prevent policy duplication, and validate claims.
   </p>
 
-  <h2>Admin Capabilities</h2>
+  <h2>Insurer Capabilities</h2>
   <table>
     <thead>
       <tr>
-        <th>Module</th>
-        <th>Functionality</th>
-        <th>Administrative Controls</th>
+        <th>Feature</th>
+        <th>Purpose</th>
+        <th>Operational Value</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><strong>Application Queue</strong></td>
-        <td>Review pending retailer and insurer registrations</td>
-        <td>Approve application, reject with notes, or request documentation.</td>
+        <td><strong>Policy Pre-Check</strong></td>
+        <td>Verify serial authenticity before issuing cover</td>
+        <td>Eliminates phantom registrations and duplicate policies on the same frame.</td>
       </tr>
       <tr>
-        <td><strong>Organization Roster</strong></td>
-        <td>Active verified partner organizations</td>
-        <td>Suspend access, invite team members, adjust role quotas.</td>
+        <td><strong>Claims Verification</strong></td>
+        <td>Cross-reference SAPS CAS and theft report status</td>
+        <td>Verifies whether a claimed bicycle was flagged stolen prior to the claim filing date.</td>
       </tr>
       <tr>
-        <td><strong>Registry Analytics</strong></td>
-        <td>Platform-wide bike registration health</td>
-        <td>Inspect total registered bikes, active theft rates, and transfer volume.</td>
+        <td><strong>Provenance History</strong></td>
+        <td>Trace chain of custody from store sale to current owner</td>
+        <td>Provides clear evidence of legitimate ownership transfer and purchase invoices.</td>
+      </tr>
+      <tr>
+        <td><strong>Fraud Hotlist Sync</strong></td>
+        <td>Access real-time database of flagged suspicious serials</td>
+        <td>Reduces fraudulent claim payouts across South African underwriting firms.</td>
       </tr>
     </tbody>
   </table>
 
   <div class="step-box">
     <div class="step-header">
-      <span class="step-badge">SECURITY</span>
-      <span class="step-title">Admin Access Control</span>
+      <span class="step-badge">ACTION</span>
+      <span class="step-title">Applying for Insurer Verification</span>
     </div>
-    <p>
-      Admin routes are strictly guarded by Appwrite labels (<code>admin</code>) or the <code>ADMIN_EMAILS</code> environment allowlist. Unauthenticated or unauthorized visitors are automatically blocked.
-    </p>
+    <div class="side-by-side-prompt">
+      <strong>Side-by-Side Action:</strong>
+      1. Navigate to <code>/onboarding</code> and click <strong>Insurer</strong>.<br>
+      2. Enter your company name, FSP license number, underwriter contact, and business email.<br>
+      3. Click <strong>Submit application →</strong> to queue for platform admin approval.
+    </div>
   </div>
 
-  <!-- SECTION 11: ACCOUNT SETTINGS -->
+  <!-- SECTION 11: PLATFORM ADMIN -->
   <div class="page-break"></div>
   <div class="header-tag">CycleTrace Client Instruction Manual · Page 12</div>
 
-  <h1>Settings, Profile & Billing <span class="section-num">11</span></h1>
+  <h1>Platform Administration & Passcode Security <span class="section-num">11</span></h1>
 
   <p>
-    Members manage their personal details, Appwrite session security, and subscription billing via <code>/settings</code>.
+    The Platform Administration portal (<code>/admin</code>) allows platform governors to review pending store and insurer applications, approve credentials, and monitor ecosystem health.
+  </p>
+
+  <h2>Admin Passcode Security Model</h2>
+  <div class="note-box">
+    <strong>Admin Access Passcode:</strong>
+    The administration console is secured by an environment-level passcode. For Daniel and testing evaluators, the production passcode is configured as:
+    <div style="font-size: 11pt; font-family: monospace; font-weight: 700; margin: 4px 0; color: #15803d;">cycletrace-admin</div>
+  </div>
+
+  <h2>Production Cleanliness & Security Enhancements</h2>
+  <ul>
+    <li><strong>Concealed Admin References:</strong> Public and guided experiences no longer display "View in Admin Dashboard" or "Verify this store in Admin" shortcuts. This guarantees real customers experience an authentic, production-ready interface.</li>
+    <li><strong>No Demo Bypass:</strong> The previous "Demo Quick Unlock" bypass button has been eliminated. Access requires explicit passcode authentication.</li>
+    <li><strong>Real-Time Store Sync:</strong> Store owner registrations persist instantly to the central registry. When a store owner applies, their application immediately appears in the Admin review queue.</li>
+  </ul>
+
+  <div class="step-box">
+    <div class="step-header">
+      <span class="step-badge">ACTION</span>
+      <span class="step-title">Unlocking the Admin Dashboard</span>
+    </div>
+    <div class="side-by-side-prompt">
+      <strong>Side-by-Side Action:</strong>
+      1. In your browser, navigate directly to <code>/admin</code>.<br>
+      2. In the "Enter administrator passcode" prompt, input <code>cycletrace-admin</code>.<br>
+      3. Click <strong>Unlock administrator console →</strong>.<br>
+      4. Inspect the <strong>Pending Applications</strong> queue. Click <strong>Verify Store</strong> on any newly registered bike shop.<br>
+      5. Switch back to the store owner window: the shop is now immediately verified and unlocked!
+    </div>
+  </div>
+
+  <!-- SECTION 12: ACCOUNT & SECURITY -->
+  <div class="page-break"></div>
+  <div class="header-tag">CycleTrace Client Instruction Manual · Page 13</div>
+
+  <h1>Account Preferences & Contact Security <span class="section-num">12</span></h1>
+
+  <p>
+    Members manage their personal contact information, regional alert city, Appwrite session security, and subscription billing via <code>/settings</code>.
   </p>
 
   <h2>Account Preferences (<code>/settings</code>)</h2>
   <ul>
-    <li><strong>Full Name:</strong> Updates user display name across ownership records and certificates.</li>
+    <li><strong>Full Name:</strong> Updates user display name across ownership records, certificates, and transfers.</li>
     <li><strong>Email Address:</strong> Read-only display of primary Appwrite account identity.</li>
-    <li><strong>Contact Phone:</strong> Stored securely for recovery notifications.</li>
-    <li><strong>Home City:</strong> Primary locality for regional recovery network alerts.</li>
-    <li><strong>Security:</strong> Direct visibility of active Appwrite Auth session encryption.</li>
+    <li><strong>Contact Phone:</strong> Stored securely for recovery notifications and customer handover certificates.</li>
+    <li><strong>Home City:</strong> Primary locality for regional recovery network alerts and stolen alerts matching.</li>
+    <li><strong>Security:</strong> Direct visibility of active Appwrite Auth session encryption and account status.</li>
   </ul>
+
+  <div class="step-box">
+    <div class="step-header">
+      <span class="step-badge">ACTION</span>
+      <span class="step-title">Updating Phone & Home City</span>
+    </div>
+    <div class="side-by-side-prompt">
+      <strong>Side-by-Side Action:</strong>
+      1. Navigate to <code>/settings</code> while logged in.<br>
+      2. Enter your cell phone number (e.g. <code>+27 82 123 4567</code>) and your Home City (e.g. <code>Cape Town</code> or <code>Johannesburg</code>).<br>
+      3. Click <strong>Save preferences →</strong>.<br>
+      4. Observe the confirmation badge confirming your contact preferences have been synced with Appwrite.
+    </div>
+  </div>
 
   <h2>Billing & Subscription (<code>/settings/billing</code>)</h2>
   <p>
-    CycleTrace integrates with South Africa's leading payment gateway, <strong>PayFast</strong>, to manage monthly bike registry subscriptions (R24.99 / month).
+    CycleTrace integrates with South Africa's leading payment gateway, <strong>PayFast</strong>, to manage monthly bike registry subscriptions (R24.99 / month). Active Appwrite records are maintained with live subscription status tracking.
   </p>
-  <div class="note-box">
-    <strong>Production Billing Note:</strong>
-    On staging and evaluation environments without live merchant keys, the billing portal displays a clean, informational state indicating active Appwrite records are maintained without service interruption.
-  </div>
 
-  <!-- SECTION 12: TESTING CHECKLIST -->
+  <!-- SECTION 13: TESTING CHECKLIST FOR DANIEL -->
   <div class="page-break"></div>
-  <div class="header-tag">CycleTrace Client Instruction Manual · Page 13</div>
+  <div class="header-tag">CycleTrace Client Instruction Manual · Page 14</div>
 
-  <h1>Interactive Testing Checklist <span class="section-num">12</span></h1>
+  <h1>Daniel's End-to-End Testing Checklist <span class="section-num">13</span></h1>
 
   <p>
-    Use this verification matrix to conduct a complete evaluation of the CycleTrace application. Check off each scenario as you complete the walkthrough.
+    This verification checklist is prepared specifically for Daniel and the evaluation team to test each core feature of the live system.
   </p>
 
   <table>
     <thead>
       <tr>
         <th style="width: 5%;">✓</th>
-        <th style="width: 25%;">Test Scenario</th>
-        <th style="width: 40%;">Verification Steps</th>
+        <th style="width: 20%;">Feature Area</th>
+        <th style="width: 45%;">Verification Steps for Daniel</th>
         <th style="width: 30%;">Expected Result</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>[ ]</td>
-        <td><strong>Public Search</strong></td>
+        <td><strong>1. Public Search</strong></td>
         <td>Go to <code>/search</code>, query a bike serial number or brand.</td>
-        <td>Matching bikes appear with photo and protected status.</td>
+        <td>Matching bikes appear with photo and protected badge.</td>
       </tr>
       <tr>
         <td>[ ]</td>
-        <td><strong>Public Record View</strong></td>
-        <td>Click a bike result card to view <code>/bikes/[id]</code>.</td>
-        <td>Verified badge and frame specs displayed; owner data remains private.</td>
+        <td><strong>2. Stolen Alerts Filter</strong></td>
+        <td>Click <strong>🚨 Stolen alerts</strong> in topbar or visit <code>/search?filter=stolen</code>.</td>
+        <td>Displays active stolen hotlist with red alerts and tip submission links.</td>
       </tr>
       <tr>
         <td>[ ]</td>
-        <td><strong>New User Register</strong></td>
-        <td>From homepage, click <strong>Register a bike</strong> while signed out.</td>
-        <td>Step 1 creates account, Step 2 captures bike, Step 3 confirms.</td>
+        <td><strong>3. Password Reset Request</strong></td>
+        <td>From <code>/login</code>, click <strong>Forgot password?</strong>. Submit email on <code>/forgot-password</code>.</td>
+        <td>Green confirmation card confirms recovery instructions sent.</td>
       </tr>
       <tr>
         <td>[ ]</td>
-        <td><strong>Auth Redirection</strong></td>
-        <td>While signed in, navigate to <code>/login</code> or <code>/register</code>.</td>
-        <td>Instantly redirected to <code>/dashboard</code>.</td>
+        <td><strong>4. Password Reset Execution</strong></td>
+        <td>Open <code>/reset-password?userId=...&secret=...</code>, enter 8+ char password.</td>
+        <td>Password successfully updated; redirects to login.</td>
       </tr>
       <tr>
         <td>[ ]</td>
-        <td><strong>Navbar Auth Sync</strong></td>
-        <td>Check homepage and topbar after signing in and signing out.</td>
-        <td>Changes between "Log in / Register" and "Dashboard / Sign out".</td>
+        <td><strong>5. Auth Smart Redirect</strong></td>
+        <td>While logged in, attempt to navigate to <code>/login</code> or <code>/register</code>.</td>
+        <td>Instantly redirects to <code>/dashboard</code> without flashing forms.</td>
       </tr>
       <tr>
         <td>[ ]</td>
-        <td><strong>Onboarding Tour</strong></td>
-        <td>Open <code>/dashboard</code>. Step through the 3-card guide.</td>
-        <td>Cards animate smoothly; "Tour guide" button replays on demand.</td>
+        <td><strong>6. Onboarding Tour</strong></td>
+        <td>Open <code>/dashboard</code>. Advance through the 3-step tour and replay.</td>
+        <td>Tour guides user smoothly; "Tour guide" button persists.</td>
       </tr>
       <tr>
         <td>[ ]</td>
-        <td><strong>Add Another Bike</strong></td>
+        <td><strong>7. Fleet Registration</strong></td>
         <td>From dashboard, click <strong>Register another bike</strong>.</td>
-        <td>Starts directly on Bike Details; no password required.</td>
+        <td>Skips account step; captures frame specs, serial, and photo.</td>
       </tr>
       <tr>
         <td>[ ]</td>
-        <td><strong>Flag Theft</strong></td>
-        <td>Go to <code>/dashboard/report</code> and submit a theft flag.</td>
-        <td>Status changes to stolen; public search shows red alert banner.</td>
+        <td><strong>8. Theft Flagging</strong></td>
+        <td>Navigate to <code>/dashboard/report</code> and flag an owned bike as stolen.</td>
+        <td>Status updates to stolen; public search displays high-visibility alert.</td>
       </tr>
       <tr>
         <td>[ ]</td>
-        <td><strong>Ownership Transfer</strong></td>
-        <td>Generate transfer token on <code>/dashboard/transfer</code>.</td>
-        <td>Recipient accepts on <code>/transfer/[token]</code>; record reassigns.</td>
+        <td><strong>9. Peer Transfer</strong></td>
+        <td>Generate peer transfer token on <code>/dashboard/transfer</code>.</td>
+        <td>Claimable on <code>/transfer/[token]</code>; ownership reassigns.</td>
       </tr>
       <tr>
         <td>[ ]</td>
-        <td><strong>Commercial Hub</strong></td>
-        <td>Visit <code>/onboarding</code> and select Store or Insurer.</td>
-        <td>Application forms submit cleanly to Appwrite admin queue.</td>
+        <td><strong>10. Store Stock Registration</strong></td>
+        <td>In <code>/store-owner</code>, add a showroom bike to inventory.</td>
+        <td>Bike appears in <strong>Shop Stock Inventory</strong> tab.</td>
       </tr>
       <tr>
         <td>[ ]</td>
-        <td><strong>Profile Settings</strong></td>
-        <td>Update phone and city on <code>/settings</code> and save.</td>
-        <td>Preferences save directly to Appwrite with green success note.</td>
+        <td><strong>11. Store Stock Handover</strong></td>
+        <td>Click <strong>Transfer to biker</strong> on stock bike. Fill customer details & invoice ref.</td>
+        <td>Updates stock to transferred; logs paper trail in store ledger.</td>
+      </tr>
+      <tr>
+        <td>[ ]</td>
+        <td><strong>12. Transfer Certificate</strong></td>
+        <td>View certificate on <code>/store-owner/transfers/[id]/certificate</code>.</td>
+        <td>Displays official seal, certificate number, invoice ref & signatures.</td>
+      </tr>
+      <tr>
+        <td>[ ]</td>
+        <td><strong>13. Admin Passcode Console</strong></td>
+        <td>Navigate to <code>/admin</code>. Enter <code>cycletrace-admin</code>.</td>
+        <td>Console unlocks; allows 1-click verification of store applications.</td>
+      </tr>
+      <tr>
+        <td>[ ]</td>
+        <td><strong>14. Contact Settings</strong></td>
+        <td>Update Phone Number and Home City on <code>/settings</code> and save.</td>
+        <td>Preferences save cleanly and persist in Appwrite user profile.</td>
       </tr>
     </tbody>
   </table>
 
-  <!-- SECTION 13: FAQ & TROUBLESHOOTING -->
+  <!-- SECTION 14: FAQ & SUPPORT -->
   <div class="page-break"></div>
-  <div class="header-tag">CycleTrace Client Instruction Manual · Page 14</div>
+  <div class="header-tag">CycleTrace Client Instruction Manual · Page 15</div>
 
-  <h1>Frequently Asked Questions & Support <span class="section-num">13</span></h1>
+  <h1>Frequently Asked Questions & Support <span class="section-num">14</span></h1>
 
   <h2>Common Questions</h2>
 
   <div class="step-box">
     <div class="step-title">Where do I find my bike's serial number?</div>
-    <p style="margin-top: 6px; font-size: 9pt;">
+    <p style="margin-top: 6px; font-size: 8.5pt;">
       On 95% of bicycles, the serial number is stamped into the metal on the underside of the bottom bracket shell (beneath the pedals). It can also sometimes be found on the rear dropout or the head tube.
     </p>
   </div>
 
   <div class="step-box">
+    <div class="step-title">What is the difference between Peer Transfer and Store Stock Transfer?</div>
+    <p style="margin-top: 6px; font-size: 8.5pt;">
+      Peer transfers (<code>/dashboard/transfer</code>) are for private individuals selling used bikes. Store Stock Transfers (<code>/store-owner/transfer</code>) are point-of-sale commercial handovers executed by verified retailers, capturing store till slip/invoice references and generating printable Certificates of Ownership Transfer with official serial numbers.
+    </p>
+  </div>
+
+  <div class="step-box">
     <div class="step-title">Can someone steal my bike by claiming my serial number?</div>
-    <p style="margin-top: 6px; font-size: 9pt;">
+    <p style="margin-top: 6px; font-size: 8.5pt;">
       No. Once a serial number is registered in CycleTrace, any attempt to register the same serial number triggers an automatic <code>409 Conflict</code> guard. Ownership can only be updated through an authorized cryptographic handover link from the existing registered owner.
     </p>
   </div>
 
   <div class="step-box">
-    <div class="step-title">What if I sell my bike to someone who isn't on CycleTrace yet?</div>
-    <p style="margin-top: 6px; font-size: 9pt;">
-      Simply generate a transfer link using their email address. When they open the link, CycleTrace allows them to accept ownership and create their free secure account in one smooth step.
-    </p>
-  </div>
-
-  <div class="step-box">
-    <div class="step-title">How does CycleTrace protect owner privacy?</div>
-    <p style="margin-top: 6px; font-size: 9pt;">
+    <div class="step-title">How does CycleTrace protect owner privacy under POPIA?</div>
+    <p style="margin-top: 6px; font-size: 8.5pt;">
       In accordance with the South African Protection of Personal Information Act (POPIA), public search results only disclose bicycle technical specifications and theft verification status. Your full name, residential address, and contact numbers are strictly confidential.
     </p>
   </div>
@@ -1184,9 +1313,10 @@
     <li><strong>Theft Recovery & Law Enforcement:</strong> <code>reports@cycletrace.co.za</code></li>
     <li><strong>Privacy & Compliance:</strong> <code>privacy@cycletrace.co.za</code></li>
     <li><strong>Official Website:</strong> <code>https://cycletrace.co.za</code></li>
+    <li><strong>Live System Deployment:</strong> <code>https://cycletrace-v2.vercel.app</code></li>
   </ul>
 
-  <div style="margin-top: 40px; padding: 20px; border-top: 2px solid #121b18; text-align: center; color: #64748b; font-size: 8.5pt;">
+  <div style="margin-top: 35px; padding: 18px; border-top: 2px solid #121b18; text-align: center; color: #64748b; font-size: 8pt;">
     © 2026 CycleTrace (Pty) Ltd. Built for South African riders, bike shops, and recovery partners. All rights reserved.
   </div>
 
