@@ -57,7 +57,7 @@ export async function createAppwriteBike(input: NewBikeRecord) {
   const user = await appwriteAccount.get()
   const { photo, ...bikeData } = input
   const photoFileId = appwriteId.unique()
-  await appwriteStorage.createFile({ bucketId: appwriteBikePhotosBucketId, fileId: photoFileId, file: photo, permissions: ['read("any")'] })
+  await appwriteStorage.createFile({ bucketId: appwriteBikePhotosBucketId, fileId: photoFileId, file: photo, permissions: ['read("any")', `update("user:${user.$id}")`, `delete("user:${user.$id}")`] })
   try {
     const row = await appwriteTables.createRow<BikeRecord>({
       databaseId: appwriteDatabaseId,

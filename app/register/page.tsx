@@ -24,6 +24,7 @@ export default function RegisterPage() {
   function selectPhoto(event: ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0]
     if (!file) return
+    if (file.size > 10_000_000) { setRegistrationError('The bike photo must be smaller than 10 MB.'); event.target.value = ''; return }
     setPhotoFile(file)
     setPhotoName(file.name)
     setPhotoPreview(URL.createObjectURL(file))
