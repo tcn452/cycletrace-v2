@@ -37,8 +37,27 @@ export async function createOrResumeAppwriteAccount(email: string, password: str
 }
 
 export async function updateAppwriteProfile(name: string, prefs: Record<string, string | boolean>) {
-  await appwriteAccount.updateName({ name })
-  return appwriteAccount.updatePrefs({ prefs })
+  if (name?.trim()) {
+    await appwriteAccount.updateName({ name: name.trim() })
+  }
+  const current = await getCurrentAppwriteUser()
+  const currentPrefs = (current?.prefs as Record<string, unknown>) || {}
+  const cleanPrefs: Record<string, string | boolean> = {}
+  for (const [k, v] of Object.entries(currentPrefs)) {
+    if (typeof v === 'string' || typeof v === 'boolean') {
+      cleanPrefs[k] = v
+    }
+  }
+  for (const [k, v] of Object.entries(prefs)) {
+    if (v !== undefined && (typeof v === 'string' || typeof v === 'boolean')) {
+      cleanPrefs[k] = v
+    }
+  }
+  return appwriteAccount.updatePrefs({ prefs: cleanPrefs })
+}
+
+export async function updateAppwritePassword(password: string, oldPassword?: string) {
+  return appwriteAccount.updatePassword({ password, oldPassword })
 }
 
 export async function signOutFromAppwrite() {

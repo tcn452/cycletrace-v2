@@ -3714,21 +3714,31 @@ body {
   align-content: start;
   gap: 3px;
 }
-.settings-tabs a {
+.settings-tabs a,
+.settings-tabs button {
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 12px 13px;
   color: #74807a;
   text-decoration: none;
-  font-size: 12px;
+  font: 500 12px var(--font-body);
+  border: none;
+  background: transparent;
+  cursor: pointer;
   border-radius: var(--control);
+  width: 100%;
+  text-align: left;
+  transition: background 0.15s ease, color 0.15s ease;
 }
-.settings-tabs a svg {
+.settings-tabs a svg,
+.settings-tabs button svg {
   width: 16px;
 }
 .settings-tabs a.active,
-.settings-tabs a:hover {
+.settings-tabs a:hover,
+.settings-tabs button.active,
+.settings-tabs button:hover {
   background: var(--ink);
   color: var(--white);
 }
@@ -3812,6 +3822,37 @@ body {
   padding: 12px 13px;
   font: 13px var(--font-body);
   outline-color: var(--green);
+}
+.settings-card input:disabled {
+  background: #f4f7f5;
+  color: #89948e;
+  cursor: not-allowed;
+}
+.settings-card .field-hint {
+  font-weight: 400;
+  font-size: 11px;
+  color: #89948e;
+}
+.settings-card .field-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #89948e;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-left: 6px;
+}
+.settings-security-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #eafaf1;
+  color: #1a5632;
+  font: 700 11px var(--font-body);
+  padding: 5px 10px;
+  border-radius: 999px;
 }
 .settings-actions {
   border-top: 1px solid var(--line);
